@@ -18,4 +18,16 @@ class controladorVistas extends Controller
         return view('menu');
     }
 
+    public function tabla(){
+        return view('tabla');
+    }
+
+    public function agregarMaterial(){
+        return view('agregarMaterial');
+    }
+
+    public function proveedores(){
+        return view('proveedores');
+    }
+
 }

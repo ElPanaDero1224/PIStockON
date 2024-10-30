@@ -1,0 +1,54 @@
+/* proveedores.css */
+
+body {
+    background-color: #f3f3f3;
+}
+
+h1 {
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.btn-agregar {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+.btn-agregar:hover {
+    background-color: #333;
+}
+
+.card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.card-footer button {
+    background-color: #ddd;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-modificar {
+    background-color: #ffc107;
+}
+
+.btn-ver-mas {
+    background-color: #17a2b8;
+}
+
+.btn-borrar {
+    background-color: #dc3545;
+    color: white;
+}
+
+.card-footer button:hover {
+    opacity: 0.8;
+}
