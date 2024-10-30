@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>@yield('titulo')</title>
     @vite(['resources/js/app.js'])
+    @yield('css')
 </head>
 
 <body>

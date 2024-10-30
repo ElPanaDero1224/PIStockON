@@ -30,4 +30,9 @@ class controladorVistas extends Controller
         return view('proveedores');
     }
 
+    public function agregarProveedor(){
+        return view('agregarProveedor');
+    }
+
+
 }

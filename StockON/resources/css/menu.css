@@ -1,0 +1,50 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f3f3f3;
+    text-align: center;
+}
+
+.menu-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+    height: 80vh; /* Para centrar verticalmente */
+}
+
+.box {
+    width: 200px;
+    height: 200px;
+    background-color: #eeeeee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.box img {
+    max-width: 60px;
+    margin-bottom: 10px;
+}
+
+.box button {
+    background-color: rgba(0, 0, 0, 0.751);
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.box button:hover {
+    background-color: #333;
+}
+
+/* Animación de hover para dar un efecto dinámico */
+.box:hover {
+    transform: scale(1.05);
+}

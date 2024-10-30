@@ -1,8 +1,13 @@
 @extends('plantillas.cabeza2')
+
+@section('css')
+    @vite('resources/css/menu.css')
+@endsection
+
 @section('contenido')
 
     <!-- CONTENIDO PRINCIPAL -->
-    <div class="container">
+    <div class="menu-container">
         <!-- Primer recuadro: Gestionar Inventario -->
         <div class="box">
             <img src="{{ asset('img/boxIcon.png') }}" alt="Icono Inventario">

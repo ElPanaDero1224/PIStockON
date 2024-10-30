@@ -15,3 +15,5 @@ Route::get('/inventario',[controladorVistas::class, 'tabla'])->name('tabla');
 Route::get('/agregarMaterial',[controladorVistas::class, 'agregarMaterial'])->name('agregarMaterial');
 
 Route::get('/proveedores', [controladorVistas::class, 'proveedores'])->name('proveedores');
+
+Route::get('/agregarProveedor', [controladorVistas::class, 'agregarProveedor'])->name('agregarProveedor');

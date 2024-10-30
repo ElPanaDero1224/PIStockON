@@ -32,7 +32,7 @@
                         <input type="password" class="form-control" id="password" name="password" required>
                     </div>
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-success">Iniciar sesión</button>
+                        <button type="submit" class="btn btn-warning">Iniciar sesión</button>
                     </div>
                 </form>
                 <div class="text-center mt-3">
