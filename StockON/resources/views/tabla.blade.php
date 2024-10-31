@@ -6,7 +6,9 @@
 
 @section('contenido')
     <div style="text-align: center; margin: 20px;">
-        <button class="btn-add">Agregar</button>
+        <a href="{{ route('agregarMaterial') }}" class="btn btn-primary" style="background-color: #7fff7dc5; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+            Agregar
+        </a>
     </div>
     
     <table class="table">
@@ -17,7 +19,8 @@
                 <th>Dimensiones</th>
                 <th>Disponible</th>
                 <th>Precio</th>
-                <th colspan="2">Más detalles</th>
+                <th>Más detalles</th>
+                <th colspan="5">Acciones</th>
             </tr>
         </thead>
         <tbody>
@@ -27,8 +30,21 @@
                 <td>a:20, h:30, l:20</td>
                 <td>20 <button class="btn-action">➕</button> <button class="btn-action">➖</button></td>
                 <td>$1.20</td>
-                <td><button class="btn-view">Ver más</button></td>
-                <td><button class="btn-delete">Borrar</button> <button class="btn-edit">Modificar</button></td>
+                <td>    
+                    <a href="#" class="btn btn-primary" style="background-color: #ffda7df7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                        <strong>Mas</strong> 
+                    </a>
+                </td>
+                <td>
+                    <a href="#" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                        <strong>Borrar</strong>
+                    </a>
+
+                    <a href="#" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                    <strong>Modificar</strong>
+                    </a>
+                    
+                </td>
             </tr>
             <tr>
                 <td>Martillos</td>
@@ -36,8 +52,22 @@
                 <td>a:20, h:30, l:20</td>
                 <td>30 <button class="btn-action">➕</button> <button class="btn-action">➖</button></td>
                 <td>$150</td>
-                <td><button class="btn-view">Ver más</button></td>
-                <td><button class="btn-delete">Borrar</button> <button class="btn-edit">Modificar</button></td>
+                
+                <td>    
+                        <a href="#" class="btn btn-primary" style="background-color: #ffda7df7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                        <strong>Ver más</strong>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="#" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                        <strong>Borrar</strong>
+                        </a>
+    
+                        <a href="#" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                        <strong>Modificar</strong>
+                        </a>
+                        
+                    </td>
             </tr>
             <!-- Agrega más filas según sea necesario -->
         </tbody>

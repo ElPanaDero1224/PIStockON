@@ -22,29 +22,19 @@
                 </div>
                 
                 <h4 class="text-center mb-4">Iniciar Sesión</h4>
-                <form action="{{route('in')}}" method="POST">
-                    @csrf
+
+                <form action="/ruta-de-login" method="POST">
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo electrónico:</label>
-                        <input type="email" class="form-control" name="email" placeholder="user@example.com" value="{{old('email')}}">
-                        <small class="text-danger"> {{ $errors->first('email') }}</small>
+                        <input type="email" class="form-control" name="email" placeholder="user@example.com" required>
                     </div>
-                    <div class="mb-3">
-                        <label for="password" class="form-label">Contraseña:</label>
-                        <input type="password" class="form-control"  name="contrasenia" value="{{old('contrasenia')}}">
-                        <small class="text-danger"> {{ $errors->first('contrasenia') }}</small>
-                    </div>
-                    <br>
+ 
                     <div class="d-grid">
-                        <button type="submit" class="btn btn-warning">Iniciar sesión</button>
+                        <button type="submit" class="btn btn-warning">Recuperar contraseña</button>
                     </div>
                 </form>
                 <div class="text-center mt-3">
-                    <span class="text-muted">Has olvidado tu contraseña? </span>
-                    <a href="{{route('recuperar')}}" class="text-primary">Haz clic aquí.</a>
-                    <br>
-                    <span class="text-muted">¿No tienes una cuenta? Regístrate </span>
-                    <a href="{{route('registro')}}" class="text-primary"> aquí.</a>
+                    <a href="/" class="text-primary">Regresar</a>
 
                 </div>
             </div>

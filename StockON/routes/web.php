@@ -17,3 +17,11 @@ Route::get('/agregarMaterial',[controladorVistas::class, 'agregarMaterial'])->na
 Route::get('/proveedores', [controladorVistas::class, 'proveedores'])->name('proveedores');
 
 Route::get('/agregarProveedor', [controladorVistas::class, 'agregarProveedor'])->name('agregarProveedor');
+
+Route::get('/recuperar', [controladorVistas::class, 'recuperar'])->name('recuperar');
+
+Route::post('/iniciar', [controladorVistas::class, 'iniciar'])->name('in');
+
+Route::post('/signin', [controladorVistas::class, 'signin'])->name('signin');
+
+Route::post('/addmaterial', [controladorVistas::class, 'addmaterial'])->name('addmaterial');

@@ -27,34 +27,43 @@
 
             <h4 class="text-center mb-4">Registrarse</h4>
 
-            <form action="/ruta-de-registro" method="POST">
+            <form action="/signin" method="POST">
+                @csrf
                 <div class="mb-3">
                     <label for="nombre" class="form-label">Nombre(s):</label>
-                    <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Jane" required>
+                    <input type="text" class="form-control" name="nombre" placeholder="Jane" value="{{old('nombre')}}">
+                    <small class="text-danger"> {{ $errors->first('nombre') }}</small>
                 </div>
+
                 <div class="mb-3">
                     <label for="apellidos" class="form-label">Apellidos:</label>
-                    <input type="text" class="form-control" id="apellidos" name="apellidos" placeholder="Doe" required>
+                    <input type="text" class="form-control" name="apellidos" placeholder="Doe" value="{{old('apellidos')}}">
+                    <small class="text-danger"> {{ $errors->first('apellidos') }}</small>
                 </div>
+
                 <div class="mb-3">
                     <label for="telefono" class="form-label">Número de teléfono:</label>
-                    <input type="tel" class="form-control" id="telefono" name="telefono" placeholder="442-233-2234" required>
+                    <input type="tel" class="form-control"  name="telefono" placeholder="442-233-2234" value="{{old('telefono')}}">
+                    <small class="text-danger"> {{ $errors->first('telefono') }}</small>
                 </div>
+
                 <div class="mb-3">
                     <label for="email" class="form-label">Correo electrónico:</label>
-                    <input type="email" class="form-control" id="email" name="email" placeholder="user@example.com" required>
+                    <input type="email" class="form-control" name="email" placeholder="user@example.com" value="{{old('email')}}">
+                    <small class="text-danger"> {{ $errors->first('email') }}</small>
                 </div>
+
                 <div class="mb-3">
                     <label for="password" class="form-label">Contraseña:</label>
-                    <input type="password" class="form-control" id="password" name="password" required>
+                    <input type="password" class="form-control"  name="contrasenia" value="{{old('contrasenia')}}">
+                    <small class="text-danger"> {{ $errors->first('contrasenia') }}</small>
                 </div>
-                <div class="mb-3">
-                    <label for="confirm_password" class="form-label">Confirmar contraseña:</label>
-                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" required>
-                </div>
+
+
                 <div class="d-grid">
                     <button type="submit" class="btn btn-warning btn-lg">Registrarse</button>
                 </div>
+
             </form>
 
             <div class="text-center mt-3">
