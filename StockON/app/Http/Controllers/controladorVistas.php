@@ -65,6 +65,8 @@ class controladorVistas extends Controller
 
         ]);
 
+        session()->flash('registro', '¡Registro completado con éxito!');
+
         return view('registrarse');
     }
     
@@ -82,10 +84,43 @@ class controladorVistas extends Controller
             'fabricante' => 'required|string|max:255',
             'material' => 'required|string|max:100',
         ]);
+
+        session()->flash('material', 'El material se ha registrado');
     
         return view('agregarMaterial'); // Redirigir o mostrar vista si es correcto.
     }
+
     
+    
+    public function rc(Request $peticiones) {
+        $validacion = $peticiones->validate([
+            'email'=>'required|email:rfc,dns',
+        ]);
+
+        session()->flash('recuperacion', 'Se ha enviado un correo ');
+    
+        return view('recuperarContra'); // Redirigir o mostrar vista si es correcto.
+    }
+
+
+
+    public function addProveedor(Request $request) {
+        $validacion = $request->validate([
+            'nproveedor' => 'required|alpha|max:50',
+            'numtelefono' => 'required|numeric|digits_between:10,15',
+            'correo' => 'required|email|max:100',
+            'tipoproducto' => 'required|string|max:255',
+            'condicionesPago' => 'required|string|max:255',
+            'freSuministro' => 'required|string|max:50',
+            'horario' => 'required|string|max:50',
+            'pais' => 'required|string|max:50',
+            'ciudad' => 'required|string|max:50',
+        ]);
+    
+        session()->flash('proveedor', 'El proveedor se ha registrado');
+    
+        return redirect()->route('agregarProveedor'); 
+    }
 
 
 

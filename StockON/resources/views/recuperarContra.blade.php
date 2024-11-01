@@ -21,12 +21,13 @@
                     <img src="{{ asset('img/txt.png') }}" alt="Logo Stock ON" class="img-fluid" style="max-width: 150px;">
                 </div>
                 
-                <h4 class="text-center mb-4">Iniciar Sesión</h4>
+                <h4 class="text-center mb-4">Recuperar contraseña</h4>
 
-                <form action="/ruta-de-login" method="POST">
+                <form action="{{route('recuperacion')}}" method="POST">
+                    @csrf
                     <div class="mb-3">
                         <label for="email" class="form-label">Correo electrónico:</label>
-                        <input type="email" class="form-control" name="email" placeholder="user@example.com" required>
+                        <input class="form-control" name="email" placeholder="user@example.com">
                     </div>
  
                     <div class="d-grid">

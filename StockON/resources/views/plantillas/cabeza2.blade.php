@@ -23,7 +23,7 @@
         <div class="header-right">
             <a href="{{route('menu')}}">Menú</a>
             <a href="{{route('proveedores')}}">Proveedores</a>
-            <a href="{{route('tabla')}}">Materiales</a>
+            <a href="{{route('tabla')}}">Inventario</a>
             <a href="{{route('iniciar')}}">Cerrar sesion</a>
         </div>
     </header>
@@ -38,7 +38,7 @@
 
 <script>
     function confirmDelete(event) {
-        event.preventDefault(); // Evita que el enlace realice su acción por defecto
+        event.preventDefault(); 
 
         Swal.fire({
             title: "¿Seguro que quieres borrar?",
@@ -46,12 +46,11 @@
             showCancelButton: true,
             confirmButtonText: "Aceptar",
             cancelButtonText: "Cancelar",
-            confirmButtonColor: "#28a745", // Verde
-            cancelButtonColor: "#dc3545"   // Rojo
+            confirmButtonColor: "#28a745",
+            cancelButtonColor: "#dc3545"  
         }).then((result) => {
             if (result.isConfirmed) {
                 Swal.fire("Eliminado", "El registro ha sido borrado", "success");
-                // Aquí puedes agregar la lógica para realizar la eliminación
             } else if (result.isDismissed) {
                 Swal.fire("Cancelado", "El registro no ha sido borrado", "info");
             }
@@ -60,7 +59,6 @@
         
     }
 
-    // Función para mostrar alerta de agregar cantidad
 function agregarCantidad() {
     Swal.fire({
         title: "Agregar cantidad",
@@ -71,9 +69,9 @@ function agregarCantidad() {
         },
         showCancelButton: true,
         confirmButtonText: "Añadir",
-        confirmButtonColor: "#28a745", // Verde
+        confirmButtonColor: "#28a745", 
         cancelButtonText: "Cancelar",
-        cancelButtonColor: "#dc3545",  // Rojo
+        cancelButtonColor: "#dc3545",  
         preConfirm: (cantidad) => {
             if (!cantidad || cantidad <= 0) {
                 Swal.showValidationMessage("Por favor ingresa una cantidad válida.");
@@ -83,12 +81,12 @@ function agregarCantidad() {
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire("Cantidad agregada", `Se han añadido ${result.value} unidades.`, "success");
-            // Aquí puedes agregar la lógica para actualizar la cantidad en la base de datos o en la interfaz
+
         }
     });
 }
 
-// Función para restar cantidad con mensaje diferente
+
 function restarCantidad() {
     Swal.fire({
         title: "Restar cantidad",
@@ -99,9 +97,9 @@ function restarCantidad() {
         },
         showCancelButton: true,
         confirmButtonText: "Restar",
-        confirmButtonColor: "#28a745", // Verde
+        confirmButtonColor: "#28a745", 
         cancelButtonText: "Cancelar",
-        cancelButtonColor: "#dc3545",  // Rojo
+        cancelButtonColor: "#dc3545",  
         preConfirm: (cantidad) => {
             if (!cantidad || cantidad <= 0) {
                 Swal.showValidationMessage("Por favor ingresa una cantidad válida.");
@@ -111,7 +109,7 @@ function restarCantidad() {
     }).then((result) => {
         if (result.isConfirmed) {
             Swal.fire("Cantidad restada", `Se han restado ${result.value} unidades.`, "success");
-            // Aquí puedes agregar la lógica para actualizar la cantidad en la base de datos o en la interfaz
+
         }
     });
 }
@@ -186,6 +184,28 @@ document.addEventListener('DOMContentLoaded', function () {
                     @endforeach
                 </ul>`,
                 confirmButtonText: 'Cerrar'
+            });
+        @endif
+
+        @if (session('material'))
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '{{ session('material') }}',
+                confirmButtonText: 'Cerrar',
+
+                
+
+            });
+        @endif
+
+
+        @if (session('proveedor'))
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '{{ session('proveedor') }}',
+                confirmButtonText: 'Cerrar',
             });
         @endif
     });

@@ -28,6 +28,28 @@
                 confirmButtonText: 'Cerrar'
             });
         @endif
+
+
+        @if (session('registro'))
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '{{ session('registro') }}',
+                confirmButtonText: 'Cerrar'
+            });
+        @endif
+
+        
+        @if (session('recuperacion'))
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '{{ session('recuperacion') }}',
+                confirmButtonText: 'Cerrar'
+            });
+        @endif
+
+
     });
 </script>
 
