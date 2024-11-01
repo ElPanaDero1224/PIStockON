@@ -50,7 +50,9 @@
             <input type="text" name="ciudad">
         </div>
         <div class="buttons">
-            <button type="button" class="cancel-btn">Cancelar</button>
+            <a href="{{ route('proveedores') }}" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                <strong>cancelar</strong>
+            </a>
             <button type="submit" class="add-btn">Añadir</button>
         </div>
     </form>

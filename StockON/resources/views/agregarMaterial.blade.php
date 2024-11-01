@@ -67,7 +67,9 @@
     </div>
 
     <div class="buttons">
-        <a href="#" class="cancel-btn">Cancelar</a>
+        <a href="{{ route('tabla') }}" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+            <strong>cancelar</strong>
+        </a>
         <button type="submit" class="add-btn">Añadir</button>
     </div>
 </form>
