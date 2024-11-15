@@ -5,11 +5,13 @@
 @endsection
 
 @section('contenido')
-    <div style="text-align: center; margin: 20px;">
+    <div style="margin: 20px 0; display: flex; justify-content: flex-start;">
         <a href="{{ route('agregarMaterial') }}" class="btn btn-primary" style="background-color: #7fff7dc5; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
             Agregar
         </a>
     </div>
+
+    <br>
     
     <table class="table">
         <thead>
@@ -57,7 +59,7 @@
                         <strong>Borrar</strong>
                     </a>
 
-                    <a href="#" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                    <a href="{{route('verModMateriales')}}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
                     <strong>Modificar</strong>
                     </a>
                     
@@ -98,7 +100,7 @@
                             <strong>Borrar</strong>
                         </a>
     
-                        <a href="#" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                        <a href="{{route('verModMateriales')}}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
                         <strong>Modificar</strong>
                         </a>
                         
