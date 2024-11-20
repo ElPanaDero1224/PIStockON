@@ -64,7 +64,7 @@ class materialesControler extends Controller
             'fabricante' => $request->input('fabricante'),
             'material' => $request->input('material'),
             'IDempresa' => 1,
-            'IDproveedor' => 1,
+            'IDproveedor' => 4,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
