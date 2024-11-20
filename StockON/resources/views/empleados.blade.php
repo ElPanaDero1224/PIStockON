@@ -23,12 +23,13 @@
         </tr>
     </thead>
     <tbody>
+        @foreach ($consultarEmpleados as $empleado)
         <tr>
-            <td>Isabel</td>
-            <td>Villagran Olvera</td>
-            <td>isa@gmail.com</td>
-            <td>4423234232</td>
-            <td>CEO</td>
+            <td>{{$empleado->nombre}}</td>
+            <td>{{$empleado->apellido}}</td>
+            <td>{{$empleado->correo}}</td>
+            <td>{{$empleado->numTelefono}}</td>
+            <td>{{$empleado->ncategoria}}</td>
             <td>
                 <a href="#" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;" onclick="confirmDelete(event)">
                     <strong>Borrar</strong>
@@ -38,21 +39,7 @@
                 </a>
             </td>
         </tr>
-        <tr>
-            <td>Juan Armando</td>
-            <td>Velazquez Alvarez</td>
-            <td>juan@gmail.com</td>
-            <td>5556789123</td>
-            <td>Gerente</td>
-            <td>
-                <a href="#" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;" onclick="confirmDelete(event)">
-                    <strong>Borrar</strong>
-                </a>
-                <a href="{{route('verModificarEmpleado')}}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
-                    <strong>Modificar</strong>
-                </a>
-            </td>
-        </tr>
+        @endforeach
 
     </tbody>
 </table>

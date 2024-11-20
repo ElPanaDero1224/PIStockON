@@ -36,12 +36,6 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="apellidos" class="form-label">Apellidos:</label>
-                    <input type="text" class="form-control" name="apellidos" placeholder="Doe" value="{{old('apellidos')}}">
-                    <small class="text-danger"> {{ $errors->first('apellidos') }}</small>
-                </div>
-
-                <div class="mb-3">
                     <label for="telefono" class="form-label">Número de teléfono:</label>
                     <input type="tel" class="form-control"  name="telefono" placeholder="442-233-2234" value="{{old('telefono')}}">
                     <small class="text-danger"> {{ $errors->first('telefono') }}</small>
@@ -54,8 +48,8 @@
                 </div>
 
                 <div class="mb-3">
-                    <label for="password" class="form-label">Contraseña:</label>
-                    <input type="password" class="form-control"  name="contrasenia" value="{{old('contrasenia')}}">
+                    <label for="contrasenia" class="form-label">Contraseña:</label>
+                    <input type="text" class="form-control"  name="contrasenia" value="{{old('contrasenia')}}">
                     <small class="text-danger"> {{ $errors->first('contrasenia') }}</small>
                 </div>
 

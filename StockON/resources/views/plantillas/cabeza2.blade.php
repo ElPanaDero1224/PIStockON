@@ -195,8 +195,6 @@ document.addEventListener('DOMContentLoaded', function () {
                 text: '{{ session('material') }}',
                 confirmButtonText: 'Cerrar',
 
-                
-
             });
         @endif
 

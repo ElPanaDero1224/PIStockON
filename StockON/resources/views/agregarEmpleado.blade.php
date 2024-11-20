@@ -40,13 +40,12 @@
         <div class="form-group mb-4">
             <label for="categoria">Categoría:</label>
             <select class="form-control" name="categoria">
-                <option value="">Seleccione una categoría</option>
-                <option value="Administrador" {{ old('categoria') == 'Administrador' ? 'selected' : '' }}>Administrador</option>
-                <option value="Proyect Team Manager" {{ old('categoria') == 'Proyect Team Manager' ? 'selected' : '' }}>Proyect Team Manager</option>
-                <option value="CEO" {{ old('categoria') == 'CEO' ? 'selected' : '' }}>CEO</option>
-                <option value="Recursos Humanos" {{ old('categoria') == 'Recursos Humanos' ? 'selected' : '' }}>Recursos Humanos</option>
-                <option value="Desarrollador" {{ old('categoria') == 'Desarrollador' ? 'selected' : '' }}>Desarrollador</option>
-                <option value="Analista" {{ old('categoria') == 'Analista' ? 'selected' : '' }}>Analista</option>
+                <option value="1" {{ old('categoria') == 'Administrador' ? 'selected' : '' }}>Administrador</option>
+                <option value="2" {{ old('categoria') == 'Proyect Team Manager' ? 'selected' : '' }}>Proyect Team Manager</option>
+                <option value="3" {{ old('categoria') == 'CEO' ? 'selected' : '' }}>CEO</option>
+                <option value="4" {{ old('categoria') == 'Recursos Humanos' ? 'selected' : '' }}>Recursos Humanos</option>
+                <option value="5" {{ old('categoria') == 'Desarrollador' ? 'selected' : '' }}>Desarrollador</option>
+                <option value="6" {{ old('categoria') == 'Analista' ? 'selected' : '' }}>Analista</option>
             </select>
             <small class="text-danger">{{ $errors->first('categoria') }}</small>
         </div>

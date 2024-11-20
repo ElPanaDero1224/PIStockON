@@ -2,6 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controladorVistas;
+use App\Http\Controllers\materialesControler;
+use App\Http\Controllers\proveedoresControler;
+use App\Http\Controllers\empleadosControler;
+use App\Http\Controllers\categoriaControler;
 
 
 Route::get('/',[controladorVistas::class, 'iniciarS'])->name('iniciar');
@@ -10,25 +14,33 @@ Route::get('/registro',[controladorVistas::class, 'registrarse'])->name('registr
 
 Route::get('/menu',[controladorVistas::class, 'menu'])->name('menu');
 
-Route::get('/inventario',[controladorVistas::class, 'tabla'])->name('tabla');
+#menu del inventario
+Route::get('/inventario',[materialesControler::class, 'index'])->name('tabla');
 
-Route::get('/agregarMaterial',[controladorVistas::class, 'agregarMaterial'])->name('agregarMaterial');
+#vista para agregar material
+Route::get('/agregarMaterial',[materialesControler::class, 'create'])->name('agregarMaterial');
 
-Route::get('/proveedores', [controladorVistas::class, 'proveedores'])->name('proveedores');
+#vista para ver la lista de los proveedores
+Route::get('/proveedores', [proveedoresControler::class, 'index'])->name('proveedores');
 
-Route::get('/agregarProveedor', [controladorVistas::class, 'agregarProveedor'])->name('agregarProveedor');
+#vista para agregar proveedor
+Route::get('/agregarProveedor', [proveedoresControler::class, 'create'])->name('agregarProveedor');
+
 
 Route::get('/recuperar', [controladorVistas::class, 'recuperar'])->name('recuperar');
 
 Route::get('/modificarProveedor',[controladorVistas::class, 'modProveedor'])->name('modProveedor');
 
-Route::get('/empleados', [controladorVistas::class,'verEmpleados'])->name('empleados');
+#vista de la tabla de empleados
+Route::get('/empleados', [empleadosControler::class,'index'])->name('empleados');
 
-route::get('/formularioEmpleados', [controladorVistas::class, 'formularioEmpleado'])->name('agregarEmpleado');
+#Vista del formulario para agregar un empleado
 
-route::get('/categorias', [controladorVistas::class,'verCategorias'])->name('categorias');
+route::get('/formularioEmpleados', [empleadosControler::class, 'create'])->name('agregarEmpleado');
 
-Route::get('/formularioCategoria', [controladorVistas::class, 'verFormularioCategorias'])->name('formularioCategoria');
+route::get('/categorias', [categoriaControler::class,'index'])->name('categorias');
+
+Route::get('/formularioCategoria', [categoriaControler::class, 'create'])->name('formularioCategoria');
 
 Route::get('/modificarCategoria', [controladorVistas::class, 'verModCategoria'])->name('verModCategoria');
 
@@ -45,15 +57,15 @@ Route::post('/iniciar', [controladorVistas::class, 'iniciar'])->name('in');
 
 Route::post('/signin', [controladorVistas::class, 'signin'])->name('signin');
 
-Route::post('/addmaterial', [controladorVistas::class, 'addmaterial'])->name('addmaterial');
+Route::post('/addmaterial', [materialesControler::class, 'store'])->name('addmaterial');
 
-Route::post('/addproveedor', [controladorVistas::class, 'addProveedor'])->name('addProveedor');
+Route::post('/addproveedor', [proveedoresControler::class, 'store'])->name('addProveedor');
 
 Route::post('/modidifcarProveedorPublicar', [controladorVistas::class, 'modProveedorPost'])->name('modProveedorPost');
 
-Route::post('/addEmpleado', [controladorVistas::class, 'agregarEmpleado'])->name('addEmpleado');
+Route::post('/addEmpleado', [empleadosControler::class, 'store'])->name('addEmpleado');
 
-Route::post('/addCategoria', [controladorVistas::class,'agregarCategoria'])->name('agregarCategoria');
+Route::post('/addCategoria', [categoriaControler::class,'store'])->name('agregarCategoria');
 
 Route::post('/modificarCategoria', [controladorVistas::class, 'modificarCategoria'])->name('modificarCategoria');
 

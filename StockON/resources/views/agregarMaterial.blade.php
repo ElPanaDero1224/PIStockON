@@ -2,7 +2,7 @@
 
 
 @extends('plantillas.cabeza2')
-
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @section('css')
     @vite('resources/css/UPDmaterial.css')
 @endsection
@@ -19,10 +19,18 @@
     </div>
 
     <div class="form-group">
+        <label for="peso">Peso del producto:</label>
+        <input type="text" name="peso" value="{{ old('peso') }}">
+        <small class="text-danger">{{ $errors->first('peso') }}</small>
+    </div>
+
+    <div class="form-group">
         <label for="caracteristicasProducto">Características del producto:</label>
         <input type="text" name="caracteristicasProducto" value="{{ old('caracteristicasProducto') }}">
         <small class="text-danger">{{ $errors->first('caracteristicasProducto') }}</small>
     </div>
+
+    
 
     <div class="form-group">
         <label>Dimensiones del producto:</label>
@@ -74,5 +82,16 @@
     </div>
 </form>
 
+<script>
+            @if (session('material'))
+            Swal.fire({
+                icon: 'success',
+                title: '¡Éxito!',
+                text: '{{ session('material') }}',
+                confirmButtonText: 'Cerrar',
+
+            });
+        @endif
+</script>
 
 @endsection

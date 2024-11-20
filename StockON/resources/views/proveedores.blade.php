@@ -13,13 +13,15 @@
 </div>
 
 
+@foreach($proveedores as $p)
+    
 
-<x-proveedor nombre="Electrotech Distribuciones" 
-telefono="+54 11-2233-4455" 
-correo="mruiz@electrotech.com" 
-productos="Componentes electrónicos, cables, baterías" 
-condicionesPago="45 días después de la entrega" >
+<x-proveedor nombre="{{$p->nombre}}" 
+telefono="{{$p->numTelefono}}" 
+correo="{{$p->correo}}" 
+productos="{{$p->tiposProducto}}" 
+condicionesPago="{{$p->condicionesPago}}" >
 </x-proveedor>
-
+@endforeach
 
 @endsection

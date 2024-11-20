@@ -1,5 +1,5 @@
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex justify-content-center my-1">
         <div class="card p-3" style="max-width: 600px;">
             <div class="card-body">
                 <h5 class="card-title">{{ $nombre }}</h5>
