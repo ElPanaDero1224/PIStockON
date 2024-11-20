@@ -20,7 +20,6 @@ return new class extends Migration
             $table->longtext('caracteristicas'); // Características del producto
             $table->string('codigoLote'); // Código del lote
             $table->longtext('material'); // Material del producto
-
             // Dimensiones
             $table->float('ancho', 8, 2)->nullable(); // Ancho del producto
             $table->float('largo', 8, 2)->nullable(); // Largo del producto

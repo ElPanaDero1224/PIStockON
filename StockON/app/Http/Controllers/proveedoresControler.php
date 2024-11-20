@@ -42,6 +42,7 @@ class proveedoresControler extends Controller
             'horario' => 'required|string|max:50',
             'pais' => 'required|string|max:50',
             'ciudad' => 'required|string|max:50',
+            
         ]);
     
         // Insertar los datos en la tabla `proveedores`

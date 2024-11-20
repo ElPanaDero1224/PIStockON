@@ -46,6 +46,7 @@ class materialesControler extends Controller
             'precio' => 'required|numeric|min:0',
             'fabricante' => 'required|string|max:255',
             'material' => 'required|string|max:100',
+            
         ]);
     
         // Inserción en la base de datos
