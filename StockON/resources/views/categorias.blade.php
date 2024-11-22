@@ -24,7 +24,7 @@
                 <a href="#" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;" onclick="confirmDelete(event)">
                     <strong>Borrar</strong>
                 </a>
-                <a href="{{route('verModCategoria')}}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                <a href="{{ route('verModificarCategorias', $categoria->categoriaID) }}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
                     <strong>Modificar</strong>
                 </a>
             </td>

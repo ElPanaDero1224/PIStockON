@@ -26,10 +26,8 @@ Route::get('/proveedores', [proveedoresControler::class, 'index'])->name('provee
 #vista para agregar proveedor
 Route::get('/agregarProveedor', [proveedoresControler::class, 'create'])->name('agregarProveedor');
 
-
 Route::get('/recuperar', [controladorVistas::class, 'recuperar'])->name('recuperar');
 
-Route::get('/modificarProveedor',[controladorVistas::class, 'modProveedor'])->name('modProveedor');
 
 #vista de la tabla de empleados
 Route::get('/empleados', [empleadosControler::class,'index'])->name('empleados');
@@ -41,12 +39,6 @@ route::get('/formularioEmpleados', [empleadosControler::class, 'create'])->name(
 route::get('/categorias', [categoriaControler::class,'index'])->name('categorias');
 
 Route::get('/formularioCategoria', [categoriaControler::class, 'create'])->name('formularioCategoria');
-
-Route::get('/modificarCategoria', [controladorVistas::class, 'verModCategoria'])->name('verModCategoria');
-
-Route::get('/verModificarEmpleado', [controladorVistas::class, 'verModificarEmpleado'])->name('verModificarEmpleado');
-
-Route::get('/verModMateriales', [controladorVistas::class, 'verModMateriales'])->name('verModMateriales');
 
 //metodos para enviar
 
@@ -67,8 +59,11 @@ Route::post('/addEmpleado', [empleadosControler::class, 'store'])->name('addEmpl
 
 Route::post('/addCategoria', [categoriaControler::class,'store'])->name('agregarCategoria');
 
-Route::post('/modificarCategoria', [controladorVistas::class, 'modificarCategoria'])->name('modificarCategoria');
 
-Route::post('/modificarEmpleado', [controladorVistas::class, 'modificarEmpleado'])->name('modificarEmpleado');
+#metodos para realizar actualizaciones
 
-Route::post('/modificarMaterial', [controladorVistas::class, 'modMaterial'])->name('modMaterial');
+#categorias
+
+Route::get('/verModificarCategoria/{id}/edit', [categoriaControler::class,'edit'])->name('verModificarCategorias');
+
+#metodos para eliminar

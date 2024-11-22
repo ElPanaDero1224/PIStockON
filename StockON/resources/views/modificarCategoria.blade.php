@@ -11,12 +11,12 @@
         <h4>Modificar Categoria</h4>
     </div>
 
-    <form method="POST" action="{{ route('modificarCategoria') }}" class="p-4">
+    <form method="POST" action="#" class="p-4">
         @csrf
 
         <div class="form-group mb-3">
             <label for="nombreEmpleado">Nombre de la categoria:</label>
-            <input type="text" class="form-control" name="nombreCategoria" value="Desarrollador" placeholder="Ingrese el nombre de la categoría">
+            <input type="text" class="form-control" name="nombreCategoria" value="{{$categoria->nombre}}" placeholder="Ingrese el nombre de la categoría">
             <small class="text-danger">{{ $errors->first('nombreCategoria') }}</small>
         </div>
         

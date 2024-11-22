@@ -60,7 +60,8 @@ class categoriaControler extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $categoria = DB::table('categorias')->where('categoriaID', $id)->first();
+        return view('modificarCategoria', compact('categoria'));
     }
 
     /**
