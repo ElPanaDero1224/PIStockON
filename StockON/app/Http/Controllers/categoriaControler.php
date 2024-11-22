@@ -69,7 +69,18 @@ class categoriaControler extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $validacion = $request->validate([
+            'nombreCategoria' => 'required|alpha|max:50', // Validación de que la empresa exista
+        ]);
+
+        DB::table('categorias')->where('categoriaID', $id)->update([
+            'nombre' => $request->input('nombreCategoria'), // Fecha de creación
+            'updated_at' => now(), // Fecha de actualización
+        ]);
+
+        return redirect()->route('categorias')->with('categoria', 'La categoria se ha actualizado');
+    
     }
 
     /**
@@ -77,6 +88,7 @@ class categoriaControler extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('categorias')->where('categoriaID', $id)->delete();
+        return to_route('categorias')->with('exito', 'Categoria eliminada correctamente.');
     }
 }

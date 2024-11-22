@@ -60,10 +60,17 @@ Route::post('/addEmpleado', [empleadosControler::class, 'store'])->name('addEmpl
 Route::post('/addCategoria', [categoriaControler::class,'store'])->name('agregarCategoria');
 
 
-#metodos para realizar actualizaciones
+#metodos para realizar actualizaciones y eliminaciones 
 
 #categorias
 
 Route::get('/verModificarCategoria/{id}/edit', [categoriaControler::class,'edit'])->name('verModificarCategorias');
-
+Route::put('/categoria/{id}', [categoriaControler::class, 'update'])->name('actualizarCategoria');
 #metodos para eliminar
+Route::delete('/eliminarCategoria/{id}', [categoriaControler::class, 'destroy'])->name('rutaEliminarCategoria');
+
+
+#empleados
+Route::get('/verModificarEmpleado/{id}/edit', [empleadosControler::class,'edit'])->name('verModEmpleado');
+Route::put('/empleados/{id}', [empleadosControler::class, 'update'])->name('actualizarEmpleado');
+Route::delete('/eliminarEmpleado/{id}', [empleadosControler::class, 'destroy'])->name('rutaEliminarEmpleado');

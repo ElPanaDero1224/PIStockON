@@ -16,7 +16,7 @@ class empleadosControler extends Controller
     {
         $consultarEmpleados = DB::table("empleados as e")
         ->join("categorias as c", "c.categoriaID", "=", "e.IDcategoria") 
-        ->select('e.nombre', 'e.apellido', 'e.correo', 'e.numTelefono', 'c.nombre as ncategoria') 
+        ->select('e.empleadoID', 'e.nombre', 'e.apellido', 'e.correo', 'e.numTelefono', 'c.nombre as ncategoria') 
         ->get();
         return view('empleados', compact('consultarEmpleados'));
     }
@@ -26,7 +26,8 @@ class empleadosControler extends Controller
      */
     public function create()
     {
-        return view('agregarEmpleado');
+        $categorias = DB::table("categorias")->get();
+        return view('agregarEmpleado', compact('categorias'));
     }
 
     /**
@@ -64,7 +65,7 @@ class empleadosControler extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -72,7 +73,12 @@ class empleadosControler extends Controller
      */
     public function edit(string $id)
     {
-        //
+
+        $categorias = DB::table("categorias")->get();
+
+        $empleados = DB::table('empleados')->where('empleadoID', $id)->first();
+
+        return view('modificarEmpleado', compact('empleados'), compact('categorias'));
     }
 
     /**
@@ -80,7 +86,33 @@ class empleadosControler extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $validacion = $request->validate([
+            'nombreEmpleado' => 'required|alpha|max:50',
+            'apellidoEmpleado' => 'required|alpha|max:50',
+            'telEmpleado' => 'required|numeric|digits_between:10,15',
+            'correoEmpleado' => 'required|email|max:100',
+        ]);
+
+        DB::table('empleados')->where('empleadoID', $id)->update([
+            'nombre' => $request->input('nombreEmpleado'),
+            'apellido' => $request->input('apellidoEmpleado'),
+            'numTelefono' => $request->input('telEmpleado'),
+            'correo' => $request->input('correoEmpleado'),
+            'IDcategoria' => $request->input('categoria'),
+            'IDempresa'=> 1,
+            'updated_at' => now(), // Fecha de actualización
+        ]);
+
+        $nombre = $request->input('nombreEmpleado');
+        return redirect()->route('empleados')->with('empleado', 'El empleado '.$nombre.' se ha actualizado');
+
+
+
+
+
+
+
     }
 
     /**
@@ -88,6 +120,9 @@ class empleadosControler extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        {
+            DB::table('empleados')->where('empleadoID', $id)->delete();
+            return to_route('empleados')->with('empleado', 'empleado eliminado correctamente.');
+        }
     }
 }

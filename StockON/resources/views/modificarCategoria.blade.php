@@ -11,8 +11,9 @@
         <h4>Modificar Categoria</h4>
     </div>
 
-    <form method="POST" action="#" class="p-4">
+    <form method="POST" action="{{route('actualizarCategoria', $categoria->categoriaID)}}" class="p-4">
         @csrf
+        @method('put')
 
         <div class="form-group mb-3">
             <label for="nombreEmpleado">Nombre de la categoria:</label>

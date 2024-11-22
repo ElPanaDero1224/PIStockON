@@ -1,4 +1,25 @@
 @extends('plantillas.cabeza2')
+
+<script>
+    function confirmarEliminacion(id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`form-eliminar-${$categoria->categoriaID}`).submit();
+            }
+        });
+    }
+</script>
+
+
 @section('contenido')
 
 <div style="margin: 20px 0; display: flex; justify-content: flex-start;">
@@ -21,12 +42,17 @@
         <tr>
             <td>{{$categoria->nombre}}</td>
             <td>
-                <a href="#" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;" onclick="confirmDelete(event)">
-                    <strong>Borrar</strong>
-                </a>
                 <a href="{{ route('verModificarCategorias', $categoria->categoriaID) }}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
                     <strong>Modificar</strong>
                 </a>
+
+                <form id="form-eliminar-{{ $categoria->categoriaID }}" action="{{ route('rutaEliminarCategoria', $categoria->categoriaID) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                <button type="button" class="btn btn-danger btn-sm" onclick="confirmarEliminacion({{ $categoria->categoriaID }})">
+                    {{ __('Eliminar') }}
+                </button>
             </td>
         </tr>
         @endforeach
