@@ -33,7 +33,6 @@
 </div>
 
 <script>
-    
     @if (session('categoria'))
             Swal.fire({
                 icon: 'success',

@@ -80,3 +80,10 @@ Route::get('/verModificarProveedor/{id}/edit', [proveedoresControler::class,'edi
 Route::put('/proveedores/{id}', [proveedoresControler::class, 'update'])->name('actualizarProveedor');
 #delete
 Route::delete('/eliminarProveedor/{id}', [proveedoresControler::class, 'destroy'])->name('rutaEliminarProveedor');
+
+
+#materiales
+Route::get('/verModificarMaterial/{id}/edit', [materialesControler::class,'edit'])->name('verModMateriales');
+Route::put('/materiales/{id}', [materialesControler::class, 'update'])->name('modMaterial');
+#eliminar
+Route::delete('/eliminarMaterial/{id}', [materialesControler::class, 'destroy'])->name('rutaEliminarMaterial');

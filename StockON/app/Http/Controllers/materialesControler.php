@@ -89,7 +89,8 @@ class materialesControler extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $material = DB::table('materiales')->where('materialID', $id)->first();
+        return view ('modificarMaterial', compact('material'));
     }
 
     /**
@@ -97,7 +98,41 @@ class materialesControler extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+
+        $validacion = $request->validate([
+            'nombreProducto' => 'required|alpha|max:50',
+            'peso' => 'required|numeric|min:0',
+            'caracteristicasProducto' => 'required|string|max:255',
+            'ancho' => 'required|numeric|min:0',
+            'largo' => 'required|numeric|min:0',
+            'alto' => 'required|numeric|min:0',
+            'precaucion' => 'required|string|max:255',
+            'codigoLote' => 'required|numeric|digits:12',
+            'precio' => 'required|numeric|min:0',
+            'fabricante' => 'required|string|max:255',
+            'material' => 'required|string|max:100',
+            
+        ]);
+
+        DB::table('materiales')->where('materialID', $id)->update([
+            'nombre' => $request->input('nombreProducto'),
+            'peso' => $request->input('peso'),
+            'disponibilidad' => true, // Disponibilidad por defecto en true
+            'precio' => $request->input('precio'),
+            'caracteristicas' => $request->input('caracteristicasProducto'),
+            'ancho' => $request->input('ancho'),
+            'largo' => $request->input('largo'),
+            'alto' => $request->input('alto'),
+            'precaucion' => $request->input('precaucion'),
+            'codigoLote' => $request->input('codigoLote'),
+            'fabricante' => $request->input('fabricante'),
+            'material' => $request->input('material'),
+            'updated_at' => now(),
+
+        ]);
+
+        return to_route('tabla')->with('material', 'El material se ha actualizado exitosamente.');
+        
     }
 
     /**
@@ -105,6 +140,9 @@ class materialesControler extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        
+        DB::table('materiales')->where('materialID', $id)->delete();
+        return to_route('tabla')->with('material', 'El material se ha eliminado exitosamente');
+
     }
 }

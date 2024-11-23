@@ -1,8 +1,28 @@
 @extends('plantillas.cabeza2')
 
+<script>
+    function confirmarEliminacion(id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`form-eliminar-${id}`).submit(); // Aquí usamos el parámetro id correctamente
+            }
+        });
+    }
+</script>
+
 @section('css')
     @vite('resources/css/tabla.css')
 @endsection
+
 
 @section('contenido')
     <div style="margin: 20px 0; display: flex; justify-content: flex-start;">
@@ -50,15 +70,25 @@
                         )" class="btn btn-info">Ver más</button>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;" onclick="confirmDelete(event)">
-                            <strong>Borrar</strong>
-                        </a>
-                        <a href="{{ route('verModMateriales') }}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+
+                        <form id="form-eliminar-{{$material->materialID}}" action="{{ route('rutaEliminarMaterial', $material->materialID) }}" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                        <button type="button" class="btn btn-danger btn-sm" onclick="confirmarEliminacion({{$material->materialID}})">
+                            {{ __('Eliminar') }}
+                        </button>
+                        
+
+                        <a href="{{ route('verModMateriales', $material->materialID) }}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
                             <strong>Modificar</strong>
                         </a>
+
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+
 @endsection

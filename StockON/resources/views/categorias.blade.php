@@ -13,7 +13,7 @@
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                document.getElementById(`form-eliminar-${$categoria->categoriaID}`).submit();
+                document.getElementById(`form-eliminar-${id}`).submit();
             }
         });
     }
@@ -56,6 +56,17 @@
             </td>
         </tr>
         @endforeach
+
+        @if (session('categoria'))
+        <script>
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session('categoria') }}',
+            confirmButtonText: 'Cerrar',
+        });
+        </script>
+        @endif
     
     </tbody>
 </table>

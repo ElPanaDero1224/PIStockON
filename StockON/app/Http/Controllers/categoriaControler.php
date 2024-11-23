@@ -88,7 +88,9 @@ class categoriaControler extends Controller
      */
     public function destroy(string $id)
     {
+        
         DB::table('categorias')->where('categoriaID', $id)->delete();
-        return to_route('categorias')->with('exito', 'Categoria eliminada correctamente.');
+        return to_route('categorias')->with('categoria', 'Categoria eliminada correctamente.');
+
     }
 }
