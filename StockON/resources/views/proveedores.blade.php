@@ -1,5 +1,26 @@
 @extends('plantillas.cabeza2')
 
+
+<script>
+    function confirmarEliminacion($id) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "No podrás revertir esto.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById(`form-eliminar-${$id}`).submit();
+            }
+        });
+    }
+</script>
+
+
 @section('css')
     @vite('resources/css/proveedores.css')
 @endsection
@@ -20,8 +41,10 @@
 telefono="{{$p->numTelefono}}" 
 correo="{{$p->correo}}" 
 productos="{{$p->tiposProducto}}" 
-condicionesPago="{{$p->condicionesPago}}" >
+condicionesPago="{{$p->condicionesPago}}" 
+id="{{$p->proveedorID}}">
 </x-proveedor>
 @endforeach
+
 
 @endsection

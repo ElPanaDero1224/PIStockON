@@ -1,4 +1,10 @@
 
+
+
+
+
+
+
     <div class="d-flex justify-content-center my-1">
         <div class="card p-3" style="max-width: 600px;">
             <div class="card-body">
@@ -23,12 +29,20 @@
                     <strong>Ver más</strong>
                 </a>
 
-                <a href="#" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;" onclick="confirmDelete(event)">
-                    <strong>Borrar</strong>
-                </a>
-                <a href="{{route('modProveedor')}}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
+                <form id="form-eliminar-{{ $id }}" action="{{ route('rutaEliminarProveedor', $id) }}" method="POST" style="display: none;">
+                    @csrf
+                    @method('DELETE')
+                </form>
+                <button type="button" class="btn btn-danger btn-sm" onclick="confirmarEliminacion({{ $id }})">
+                    {{ __('Eliminar') }}
+                </button>
+
+                <a href="{{route('modProveedor', $id )}}" class="btn btn-primary" style="background-color: #98dbdbf7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
                     <strong>Modificar</strong>
                 </a>
-            </div>
+            </div> 
         </div>
     </div>
+
+
+    

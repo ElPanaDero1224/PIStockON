@@ -74,3 +74,9 @@ Route::delete('/eliminarCategoria/{id}', [categoriaControler::class, 'destroy'])
 Route::get('/verModificarEmpleado/{id}/edit', [empleadosControler::class,'edit'])->name('verModEmpleado');
 Route::put('/empleados/{id}', [empleadosControler::class, 'update'])->name('actualizarEmpleado');
 Route::delete('/eliminarEmpleado/{id}', [empleadosControler::class, 'destroy'])->name('rutaEliminarEmpleado');
+
+#proveedor
+Route::get('/verModificarProveedor/{id}/edit', [proveedoresControler::class,'edit'])->name('modProveedor');
+Route::put('/proveedores/{id}', [proveedoresControler::class, 'update'])->name('actualizarProveedor');
+#delete
+Route::delete('/eliminarProveedor/{id}', [proveedoresControler::class, 'destroy'])->name('rutaEliminarProveedor');

@@ -82,7 +82,8 @@ class proveedoresControler extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $proveedores = DB::table('proveedores')->where('proveedorID', $id)->first();
+        return view('modificarProveedor', compact('proveedores'));
     }
 
     /**
@@ -90,7 +91,44 @@ class proveedoresControler extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        
+        $validacion = $request->validate([
+            'nproveedor' => 'required|string|max:50',
+            'numtelefono' => 'required|numeric|digits_between:10,15',
+            'correo' => 'required|email|max:100',
+            'tipoproducto' => 'required|string|max:255',
+            'condicionesPago' => 'required|string|max:255',
+            'freSuministro' => 'required|string|max:50',
+            'horario' => 'required|string|max:50',
+            'pais' => 'required|string|max:50',
+            'ciudad' => 'required|string|max:50',
+            'updated_at' => now(), 
+        ]);
+
+        
+    
+        // Insertar los datos en la tabla `proveedores`
+        DB::table('proveedores')->where('proveedorID', $id)->update([
+            'nombre' => $request->input('nproveedor'),
+            'numTelefono' => $request->input('numtelefono'),
+            'correo' => $request->input('correo'),
+            'tiposProducto' => $request->input('tipoproducto'),
+            'condicionesPago' => $request->input('condicionesPago'),
+            'frecuenciaSuministro' => $request->input('freSuministro'),
+            'horarioAtencion' => $request->input('horario'),
+            'pais' => $request->input('pais'),
+            'ciudad' => $request->input('ciudad'),
+            'IDempresa' => 1, // Ajusta este valor según tu lógica para asociar con la empresa
+            'updated_at' => now(),
+        ]);
+    
+        // Agregar un mensaje de éxito a la sesión
+
+        // Redirigir al formulario o a otra página
+        return redirect()->route('proveedores')->with('proveedor', 'El proveedor se ha actualizado exitosamente.');
+
+
+
     }
 
     /**
@@ -98,6 +136,7 @@ class proveedoresControler extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        DB::table('proveedores')->where('proveedorID', $id)->delete();
+        return to_route('proveedores')->with('proveedor', 'El proveedor se ha eliminado');
     }
 }

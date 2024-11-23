@@ -14,14 +14,16 @@ class proveedor extends Component
     public $correo;
     public $productos;
     public $condicionesPago;
+    public $id;
      
-    public function __construct($nombre, $telefono, $correo, $productos, $condicionesPago)
+    public function __construct($nombre, $telefono, $correo, $productos, $condicionesPago, $id)
     {
         $this->nombre = $nombre;
         $this->telefono = $telefono;
         $this->correo = $correo;
         $this->productos = $productos;
         $this->condicionesPago = $condicionesPago;
+        $this->id = $id;
     }
 
     /**
