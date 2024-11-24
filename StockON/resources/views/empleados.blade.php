@@ -60,7 +60,7 @@
                 <td>{{ $empleado->apellido }}</td>
                 <td>{{ $empleado->correo }}</td>
                 <td>{{ $empleado->numTelefono }}</td>
-                <td>{{ $empleado->ncategoria }}</td>
+                <td>{{ $empleado->ncategoria ?? 'Sin cargo' }}</td>
                 <td>
                     <!-- Formulario de eliminación -->
                     <form id="form-eliminar-{{ $empleado->empleadoID }}" action="{{ route('rutaEliminarEmpleado', $empleado->empleadoID) }}" method="POST" style="display: none;">

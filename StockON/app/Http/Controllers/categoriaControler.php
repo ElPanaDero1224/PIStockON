@@ -14,9 +14,24 @@ class categoriaControler extends Controller
      */
     public function index()
     {
-        $consultaCategoria = DB::table('categorias as c')->get();
+        // Verificar si la sesión está iniciada
+        if (!session()->has('empresaID')) {
+            // Si no está iniciada, redirigir a la página de inicio de sesión con un mensaje de error
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a las categorías.');
+        }
+    
+        // Obtener el ID de la empresa de la sesión
+        $empresaID = session('empresaID');
+        
+        // Realizar la consulta para obtener las categorías asociadas al ID de la empresa
+        $consultaCategoria = DB::table('categorias as c')
+            ->where('IDempresa', $empresaID)
+            ->get();
+    
+        // Mostrar la vista con los datos de categorías
         return view('categorias', compact('consultaCategoria'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -38,7 +53,7 @@ class categoriaControler extends Controller
         // Inserción de datos en la tabla categorias
         DB::table('categorias')->insert([
             'nombre' => $request->input('nombreCategoria'),
-            'IDempresa' => 1,
+            'IDempresa' => session('empresaID'),
             'created_at' => now(), // Fecha de creación
             'updated_at' => now(), // Fecha de actualización
         ]);
@@ -88,7 +103,10 @@ class categoriaControler extends Controller
      */
     public function destroy(string $id)
     {
-        
+        DB::table('empleados')->where('IDcategoria', $id)->update([
+            'IDcategoria' => null,  
+        ]);
+
         DB::table('categorias')->where('categoriaID', $id)->delete();
         return to_route('categorias')->with('categoria', 'Categoria eliminada correctamente.');
 

@@ -9,6 +9,8 @@ use App\Http\Controllers\categoriaControler;
 
 
 Route::get('/',[controladorVistas::class, 'iniciarS'])->name('iniciar');
+Route::get('/cerrarSesion', [controladorVistas::class, 'cerrarSesion'])->name('cerrarSesion');
+
 
 Route::get('/registro',[controladorVistas::class, 'registrarse'])->name('registro');
 

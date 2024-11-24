@@ -15,9 +15,24 @@ class proveedoresControler extends Controller
      */
     public function index()
     {
-        $proveedores = DB::table('proveedores')->get();
+        // Verificar si la sesión está iniciada
+        if (!session()->has('empresaID')) {
+            // Si no está iniciada, redirigir a la página de inicio de sesión con un mensaje de error
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a los proveedores.');
+        }
+    
+        // Obtener el ID de la empresa de la sesión
+        $empresaID = session('empresaID');
+    
+        // Realizar la consulta para obtener los proveedores asociados al ID de la empresa
+        $proveedores = DB::table('proveedores')
+            ->where('IDempresa', $empresaID)
+            ->get();
+    
+        // Mostrar la vista con los datos de proveedores
         return view('proveedores', compact('proveedores'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -57,7 +72,7 @@ class proveedoresControler extends Controller
             'horarioAtencion' => $request->input('horario'),
             'pais' => $request->input('pais'),
             'ciudad' => $request->input('ciudad'),
-            'IDempresa' => 1, // Ajusta este valor según tu lógica para asociar con la empresa
+            'IDempresa' => session('empresaID'), // Ajusta este valor según tu lógica para asociar con la empresa
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -117,8 +132,7 @@ class proveedoresControler extends Controller
             'frecuenciaSuministro' => $request->input('freSuministro'),
             'horarioAtencion' => $request->input('horario'),
             'pais' => $request->input('pais'),
-            'ciudad' => $request->input('ciudad'),
-            'IDempresa' => 1, // Ajusta este valor según tu lógica para asociar con la empresa
+            'ciudad' => $request->input('ciudad'), // Ajusta este valor según tu lógica para asociar con la empresa
             'updated_at' => now(),
         ]);
     

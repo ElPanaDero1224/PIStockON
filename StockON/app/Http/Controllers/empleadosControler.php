@@ -14,19 +14,34 @@ class empleadosControler extends Controller
      */
     public function index()
     {
+        // Verificar si la sesión tiene el 'empresaID'
+        if (!session()->has('empresaID')) {
+            // Redirigir al inicio de sesión o a donde prefieras
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+    
+        // Si la sesión está activa, proceder con la consulta
+        $empresaID = session('empresaID');
+    
         $consultarEmpleados = DB::table("empleados as e")
-        ->join("categorias as c", "c.categoriaID", "=", "e.IDcategoria") 
-        ->select('e.empleadoID', 'e.nombre', 'e.apellido', 'e.correo', 'e.numTelefono', 'c.nombre as ncategoria') 
-        ->get();
+            ->leftJoin("categorias as c", "c.categoriaID", "=", "e.IDcategoria")  // Usamos leftJoin en vez de join
+            ->select('e.empleadoID', 'e.nombre', 'e.apellido', 'e.correo', 'e.numTelefono', 'c.nombre as ncategoria', 'e.IDempresa')
+            ->where('e.IDempresa', $empresaID)  
+            ->get();
+    
         return view('empleados', compact('consultarEmpleados'));
     }
+    
 
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        $categorias = DB::table("categorias")->get();
+        $empresaID = session('empresaID');
+        $categorias = DB::table("categorias")
+        ->where('IDempresa', $empresaID)  
+        ->get();
         return view('agregarEmpleado', compact('categorias'));
     }
 
@@ -48,7 +63,7 @@ class empleadosControler extends Controller
             'numTelefono' => $request->input('telEmpleado'),
             'correo' => $request->input('correoEmpleado'),
             'IDcategoria' => $request->input('categoria'),
-            'IDempresa'=> 1,
+            'IDempresa'=> session('empresaID'),
             'created_at' => now(), // Fecha de creación
             'updated_at' => now(), // Fecha de actualización
         ]);
@@ -74,7 +89,10 @@ class empleadosControler extends Controller
     public function edit(string $id)
     {
 
-        $categorias = DB::table("categorias")->get();
+        $empresaID = session('empresaID');
+        $categorias = DB::table("categorias")
+        ->where('IDempresa', $empresaID)  
+        ->get();
 
         $empleados = DB::table('empleados')->where('empleadoID', $id)->first();
 
@@ -100,7 +118,6 @@ class empleadosControler extends Controller
             'numTelefono' => $request->input('telEmpleado'),
             'correo' => $request->input('correoEmpleado'),
             'IDcategoria' => $request->input('categoria'),
-            'IDempresa'=> 1,
             'updated_at' => now(), // Fecha de actualización
         ]);
 

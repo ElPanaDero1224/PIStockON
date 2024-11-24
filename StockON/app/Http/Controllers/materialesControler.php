@@ -12,11 +12,28 @@ class materialesControler extends Controller
     /**
      * Display a listing of the resource.
      */
+
+
+
     public function index()
     {
-        $consultaMaterial = DB::table('materiales')->get();
+        if (!session()->has('empresaID')) {
+
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a la tabla.');
+        }
+    
+
+        $empresaID = session('empresaID');
+    
+
+        $consultaMaterial = DB::table('materiales')
+            ->where('IDempresa', $empresaID)  
+            ->get();
+    
         return view('tabla', compact('consultaMaterial'));
     }
+    
+    
 
 
 
@@ -63,11 +80,12 @@ class materialesControler extends Controller
             'codigoLote' => $request->input('codigoLote'),
             'fabricante' => $request->input('fabricante'),
             'material' => $request->input('material'),
-            'IDempresa' => 1,
+            'IDempresa' => session('empresaID'), // Aquí se obtiene de la sesión
             'IDproveedor' => 4,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        
     
         // Mensaje de éxito
         session()->flash('material', 'El material se ha registrado exitosamente.');

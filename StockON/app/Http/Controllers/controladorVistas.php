@@ -17,7 +17,11 @@ class controladorVistas extends Controller
         return view('registrarse');
     }
 
-    public function menu(){
+    public function menu()
+    {
+        if (!session()->has('empresaID')) {
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder al menú.');
+        }
         return view('menu');
     }
 
@@ -34,8 +38,21 @@ class controladorVistas extends Controller
             'contrasenia'=>'required|string|min:5|max:30',
         ]);
 
+        $empresa = DB::table('empresa')
+        ->where('correo', $peticiones->input('email'))
+        ->where('contrasenia', $peticiones->input('contrasenia'))
+        ->first();
 
-        return view ('menu');
+        if ($empresa) {
+            // Guardar el ID en la sesión
+            session(['empresaID' => $empresa->empresaID]);
+            return redirect()->route('menu');
+        } else {
+            return back()->withErrors(['email' => 'Credenciales incorrectas.']);
+        }
+
+
+
     }
 
 
@@ -78,6 +95,16 @@ class controladorVistas extends Controller
     
         return view('recuperarContra'); // Redirigir o mostrar vista si es correcto.
     }
+
+
+    public function cerrarSesion()
+        {
+            // Eliminar todos los datos de la sesión
+            session()->flush();
+
+            // Redirigir a la página de inicio de sesión con un mensaje
+            return redirect()->route('iniciar')->with('success', 'Has cerrado sesión correctamente.');
+        }
 
 
 }

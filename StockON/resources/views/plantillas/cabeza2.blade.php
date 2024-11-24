@@ -25,7 +25,7 @@
             <a href="{{route('proveedores')}}">Proveedores</a>
             <a href="{{route('tabla')}}">Inventario</a>
             <a href="{{route('empleados')}}">Empleados</a>
-            <a href="{{route('iniciar')}}">Cerrar sesion</a>
+            <a href="{{route('cerrarSesion')}}">Cerrar sesion</a>
         </div>
     </header>
 

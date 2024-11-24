@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('correo',125);
             $table->string('numTelefono',20);
             $table->unsignedBigInteger('IDempresa');
-            $table->unsignedBigInteger('IDcategoria');
+            $table->unsignedBigInteger('IDcategoria')->nullable();
 
             $table->foreign('IDempresa')->references('empresaID')->on('empresa')->onDelete('cascade');
             $table->foreign('IDcategoria')->references('categoriaID')->on('categorias')->onDelete('cascade');
