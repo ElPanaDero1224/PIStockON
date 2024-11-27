@@ -30,7 +30,7 @@ return new class extends Migration
 
             // Relaciones
             $table->unsignedBigInteger('IDempresa'); // Llave foránea hacia `empresa`
-            $table->unsignedBigInteger('IDproveedor'); // Llave foránea hacia `proveedores`
+            $table->unsignedBigInteger('IDproveedor')->nullable(); // Llave foránea hacia `proveedores`
 
             // Referencias de claves foráneas
             $table->foreign('IDempresa')->references('empresaID')->on('empresa')->onDelete('cascade');

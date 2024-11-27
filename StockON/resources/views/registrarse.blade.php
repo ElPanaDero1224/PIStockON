@@ -49,7 +49,7 @@
 
                 <div class="mb-3">
                     <label for="contrasenia" class="form-label">Contraseña:</label>
-                    <input type="text" class="form-control"  name="contrasenia" value="{{old('contrasenia')}}">
+                    <input type="password" class="form-control"  name="contrasenia" value="{{old('contrasenia')}}">
                     <small class="text-danger"> {{ $errors->first('contrasenia') }}</small>
                 </div>
 

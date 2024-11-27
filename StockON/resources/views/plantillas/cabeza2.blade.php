@@ -116,24 +116,25 @@ function restarCantidad() {
 }
 
 
-function verMasDetalles(nombre, caracteristicas, dimensiones, precauciones, codigo, precio, fabricante, material) {
-    Swal.fire({
-        title: `<strong>Nombre: ${nombre}</strong>`,
-        html: `
-            <p><strong>Características:</strong><br>${caracteristicas}</p>
-            <p><strong>Dimensiones:</strong><br>${dimensiones}</p>
-            <p><strong>Medidas de precaución:</strong><br>${precauciones}</p>
-            <p><strong>Código del lote:</strong><br>${codigo}</p>
-            <p><strong>Precio:</strong><br>${precio}</p>
-            <p><strong>Fabricante:</strong><br>${fabricante}</p>
-            <p><strong>Material:</strong><br>${material}</p>
-        `,
-        showCloseButton: true,
-        focusConfirm: false,
-        confirmButtonText: 'Cerrar',
-        confirmButtonColor: '#28a745'
-    });
-}
+function mostrarDetallesProveedor(nombre, telefono, correo, productos, condicionesPago, frecuenciaSuministro, horarioAtencion, pais, ciudad) {
+        Swal.fire({
+            title: `<strong>${nombre}</strong>`,
+            html: `
+                <p><strong>Teléfono:</strong> ${telefono}</p>
+                <p><strong>Correo:</strong> ${correo}</p>
+                <p><strong>Productos Suministrados:</strong> ${productos}</p>
+                <p><strong>Condiciones de Pago:</strong> ${condicionesPago}</p>
+                <p><strong>Frecuencia de Suministro:</strong> ${frecuenciaSuministro}</p>
+                <p><strong>Horario de Atención:</strong> ${horarioAtencion}</p>
+                <p><strong>País:</strong> ${pais}</p>
+                <p><strong>Ciudad:</strong> ${ciudad}</p>
+            `,
+            showCloseButton: true,
+            focusConfirm: false,
+            confirmButtonText: 'Cerrar',
+            confirmButtonColor: '#3085d6',
+        });
+    }
 
 function verMasDetalles(nombre, caracteristicas, dimensiones, precauciones, codigo, precio, fabricante, material) {
     Swal.fire({
@@ -155,14 +156,18 @@ function verMasDetalles(nombre, caracteristicas, dimensiones, precauciones, codi
 }
 
 
-function mostrarDetallesProveedor(nombre, telefono, correo, productos, condicionesPago) {
+function mostrarDetallesProveedor(nombre, telefono, correo, productos, condicionesPago, frecuencia, horario, pais, ciudad) {
     Swal.fire({
         title: `<strong>Detalles del Proveedor: ${nombre}</strong>`,
         html: `
             <p><strong>Teléfono:</strong> ${telefono}</p>
             <p><strong>Correo:</strong> ${correo}</p>
-            <p><strong>Tipo de Productos Suministrados:</strong> ${productos}</p>
-            <p><strong>Condiciones de Pago:</strong> ${condicionesPago}</p>
+            <p><strong>Tipo de Productos Suministrados:</strong> ${productos || 'No especificado'}</p>
+            <p><strong>Condiciones de Pago:</strong> ${condicionesPago || 'No especificado'}</p>
+            <p><strong>Frecuencia de Suministro:</strong> ${frecuencia || 'No especificado'}</p>
+            <p><strong>Horario de Atención:</strong> ${horario || 'No especificado'}</p>
+            <p><strong>País:</strong> ${pais || 'No especificado'}</p>
+            <p><strong>Ciudad:</strong> ${ciudad || 'No especificado'}</p>
         `,
         icon: 'info',
         showCloseButton: true,
@@ -173,6 +178,7 @@ function mostrarDetallesProveedor(nombre, telefono, correo, productos, condicion
         }
     });
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
         @if ($errors->any())

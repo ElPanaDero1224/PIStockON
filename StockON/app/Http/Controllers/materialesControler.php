@@ -52,7 +52,7 @@ class materialesControler extends Controller
     {
         // Validación de los datos
         $validacion = $request->validate([
-            'nombreProducto' => 'required|alpha|max:50',
+            'nombre' => 'required|regex:/^[a-zA-Z\s.\'-]+$/|max:50',
             'peso' => 'required|numeric|min:0',
             'caracteristicasProducto' => 'required|string|max:255',
             'ancho' => 'required|numeric|min:0',
@@ -64,7 +64,14 @@ class materialesControler extends Controller
             'fabricante' => 'required|string|max:255',
             'material' => 'required|string|max:100',
             
-        ]);
+        ],
+        [
+            'nombre.required' => 'El nombre es obligatorio. Por favor, ingresa este campo.',
+            'nombre.regex' => 'El nombre solo puede contener letras, espacios, puntos, apóstrofes y guiones.',
+            'nombre.max' => 'El nombre no puede tener más de 50 caracteres.',
+        ]
+    
+    );
     
         // Inserción en la base de datos
         DB::table('materiales')->insert([
@@ -80,8 +87,7 @@ class materialesControler extends Controller
             'codigoLote' => $request->input('codigoLote'),
             'fabricante' => $request->input('fabricante'),
             'material' => $request->input('material'),
-            'IDempresa' => session('empresaID'), // Aquí se obtiene de la sesión
-            'IDproveedor' => 4,
+            'IDempresa' => session('empresaID'), // Aquí se obtiene de la sesió
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -118,7 +124,7 @@ class materialesControler extends Controller
     {
 
         $validacion = $request->validate([
-            'nombreProducto' => 'required|alpha|max:50',
+            'nombre' => 'required|regex:/^[a-zA-Z\s.\'-]+$/|max:50',
             'peso' => 'required|numeric|min:0',
             'caracteristicasProducto' => 'required|string|max:255',
             'ancho' => 'required|numeric|min:0',
@@ -130,7 +136,14 @@ class materialesControler extends Controller
             'fabricante' => 'required|string|max:255',
             'material' => 'required|string|max:100',
             
-        ]);
+        ],
+        [
+            'nombre.required' => 'El nombre es obligatorio. Por favor, ingresa este campo.',
+            'nombre.regex' => 'El nombre solo puede contener letras, espacios, puntos, apóstrofes y guiones.',
+            'nombre.max' => 'El nombre no puede tener más de 50 caracteres.',
+        ]
+    
+    );
 
         DB::table('materiales')->where('materialID', $id)->update([
             'nombre' => $request->input('nombreProducto'),

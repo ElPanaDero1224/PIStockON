@@ -15,8 +15,13 @@ class proveedor extends Component
     public $productos;
     public $condicionesPago;
     public $id;
+    public $frecuenciaSuministro;
+    public $horarioAtencion;
+    public $pais;
+    public $ciudad;
+
      
-    public function __construct($nombre, $telefono, $correo, $productos, $condicionesPago, $id)
+    public function __construct($nombre, $telefono, $correo, $productos, $condicionesPago, $id, $frecuenciaSuministro, $horarioAtencion, $pais, $ciudad)
     {
         $this->nombre = $nombre;
         $this->telefono = $telefono;
@@ -24,6 +29,10 @@ class proveedor extends Component
         $this->productos = $productos;
         $this->condicionesPago = $condicionesPago;
         $this->id = $id;
+        $this->frecuenciaSuministro = $frecuenciaSuministro;
+        $this->horarioAtencion = $horarioAtencion;
+        $this->pais = $pais;
+        $this->ciudad = $ciudad;
     }
 
     /**

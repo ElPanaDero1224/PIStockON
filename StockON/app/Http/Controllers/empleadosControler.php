@@ -50,12 +50,18 @@ class empleadosControler extends Controller
      */
     public function store(Request $request)
     {
-        $validacion = $request->validate([
-            'nombreEmpleado' => 'required|alpha|max:50',
-            'apellidoEmpleado' => 'required|alpha|max:50',
-            'telEmpleado' => 'required|numeric|digits_between:10,15',
-            'correoEmpleado' => 'required|email|max:100',
-        ]);
+        $validacion = $request->validate(
+            [
+                'nombreEmpleado' => 'required|alpha|max:50',
+                'apellidoEmpleado' => 'required|alpha|max:50',
+                'telEmpleado' => ['required', 'regex:/^\+?[0-9\s\-\(\)]+$/'],
+                'correoEmpleado' => 'required|email|max:100',
+            ],
+            [
+                'telEmpleado.required' => 'El número de teléfono es obligatorio.',
+                'telEmpleado.regex' => 'El número de teléfono debe ser válido. Ejemplo: +1234567890 o (123) 456-7890.',
+            ]
+        );
 
         DB::table('empleados')->insert([
             'nombre' => $request->input('nombreEmpleado'),
@@ -105,12 +111,18 @@ class empleadosControler extends Controller
     public function update(Request $request, string $id)
     {
         
-        $validacion = $request->validate([
-            'nombreEmpleado' => 'required|alpha|max:50',
-            'apellidoEmpleado' => 'required|alpha|max:50',
-            'telEmpleado' => 'required|numeric|digits_between:10,15',
-            'correoEmpleado' => 'required|email|max:100',
-        ]);
+        $validacion = $request->validate(
+            [
+                'nombreEmpleado' => 'required|alpha|max:50',
+                'apellidoEmpleado' => 'required|alpha|max:50',
+                'telEmpleado' => ['required', 'regex:/^\+?[0-9\s\-\(\)]+$/'],
+                'correoEmpleado' => 'required|email|max:100',
+            ],
+            [
+                'telEmpleado.required' => 'El número de teléfono es obligatorio.',
+                'telEmpleado.regex' => 'El número de teléfono debe ser válido. Ejemplo: +1234567890 o (123) 456-7890.',
+            ]
+        );
 
         DB::table('empleados')->where('empleadoID', $id)->update([
             'nombre' => $request->input('nombreEmpleado'),

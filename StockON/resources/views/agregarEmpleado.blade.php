@@ -33,7 +33,7 @@
 
         <div class="form-group mb-3">
             <label for="telEmpleado">Numero de telefono:</label>
-            <input type="number" class="form-control" name="telEmpleado" value="{{ old('telEmpleado') }}" placeholder="Ingrese el numero telefónico">
+            <input type="text" class="form-control" name="telEmpleado" value="{{ old('telEmpleado') }}" placeholder="Ingrese el numero telefónico">
             <small class="text-danger">{{ $errors->first('telEmpleado') }}</small>
         </div>
 

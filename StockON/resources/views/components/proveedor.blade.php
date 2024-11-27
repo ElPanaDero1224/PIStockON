@@ -23,11 +23,23 @@
             <div class="card-footer d-flex justify-content-end gap-2">
 
 
-                <a href="#" class="btn btn-primary" 
-                    style="background-color: #ffda7df7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;" 
-                    onclick="mostrarDetallesProveedor('{{ $nombre }}', '{{ $telefono }}', '{{ $correo }}', '{{ $productos }}', '{{ $condicionesPago }}')">
-                    <strong>Ver más</strong>
-                </a>
+                <a href="#" 
+                        class="btn btn-primary" 
+                        style="background-color: #ffda7df7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;" 
+                        onclick="mostrarDetallesProveedor(
+                            '{{ $nombre }}',
+                            '{{ $telefono }}',
+                            '{{ $correo }}',
+                            '{{ $productos }}',
+                            '{{ $condicionesPago }}',
+                            '{{ $frecuenciaSuministro }}',
+                            '{{ $horarioAtencion }}',
+                            '{{ $pais }}',
+                            '{{ $ciudad }}'
+                        )">
+                            <strong>Ver más</strong>
+                        </a>
+
 
                 <form id="form-eliminar-{{ $id }}" action="{{ route('rutaEliminarProveedor', $id) }}" method="POST" style="display: none;">
                     @csrf

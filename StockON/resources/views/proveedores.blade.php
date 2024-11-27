@@ -37,12 +37,18 @@
 @foreach($proveedores as $p)
     
 
-<x-proveedor nombre="{{$p->nombre}}" 
-telefono="{{$p->numTelefono}}" 
-correo="{{$p->correo}}" 
-productos="{{$p->tiposProducto}}" 
-condicionesPago="{{$p->condicionesPago}}" 
-id="{{$p->proveedorID}}">
+<x-proveedor 
+nombre="{{ $p->nombre }}" 
+telefono="{{ $p->numTelefono }}" 
+correo="{{ $p->correo }}" 
+productos="{{ $p->tiposProducto }}" 
+condicionesPago="{{ $p->condicionesPago }}" 
+frecuenciaSuministro="{{ $p->frecuenciaSuministro }}"
+horarioAtencion="{{ $p->horarioAtencion }}"
+pais="{{ $p->pais }}"
+ciudad="{{ $p->ciudad }}"
+id="{{ $p->proveedorID }}"
+>
 </x-proveedor>
 @endforeach
 

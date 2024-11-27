@@ -49,7 +49,7 @@ class proveedoresControler extends Controller
     {
         $validacion = $request->validate([
             'nproveedor' => 'required|string|max:50',
-            'numtelefono' => 'required|numeric|digits_between:10,15',
+            'numtelefono' => ['required', 'regex:/^\+?[0-9\s\-\(\)]+$/'],
             'correo' => 'required|email|max:100',
             'tipoproducto' => 'required|string|max:255',
             'condicionesPago' => 'required|string|max:255',
@@ -59,7 +59,12 @@ class proveedoresControler extends Controller
             'ciudad' => 'required|string|max:50',
             'created_at' => now(), // Fecha de creación
             'updated_at' => now(), 
-        ]);
+        ],
+        [
+            'numtelefono.required' => 'El número de teléfono es obligatorio.',
+            'numtelefono.regex' => 'El número de teléfono debe ser válido. Ejemplo: +1234567890 o (123) 456-7890.',
+        ]
+    );
     
         // Insertar los datos en la tabla `proveedores`
         DB::table('proveedores')->insert([
@@ -109,7 +114,7 @@ class proveedoresControler extends Controller
         
         $validacion = $request->validate([
             'nproveedor' => 'required|string|max:50',
-            'numtelefono' => 'required|numeric|digits_between:10,15',
+            'numtelefono' => ['required', 'regex:/^\+?[0-9\s\-\(\)]+$/'],
             'correo' => 'required|email|max:100',
             'tipoproducto' => 'required|string|max:255',
             'condicionesPago' => 'required|string|max:255',
@@ -118,7 +123,12 @@ class proveedoresControler extends Controller
             'pais' => 'required|string|max:50',
             'ciudad' => 'required|string|max:50',
             'updated_at' => now(), 
-        ]);
+        ],
+        [
+            'numtelefono.required' => 'El número de teléfono es obligatorio.',
+            'numtelefono.regex' => 'El número de teléfono debe ser válido. Ejemplo: +1234567890 o (123) 456-7890.',
+        ]
+    );
 
         
     

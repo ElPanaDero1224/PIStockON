@@ -18,7 +18,7 @@
         
         <div class="form-group">
             <label for="numtelefono">Número de teléfono:</label>
-            <input type="number" name="numtelefono" value="{{ old('numtelefono') }}">
+            <input type="text" name="numtelefono" value="{{ old('numtelefono') }}">
             <small class="text-danger">{{ $errors->first('numtelefono') }}</small>
         </div>
 
