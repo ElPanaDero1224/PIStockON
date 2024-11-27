@@ -52,7 +52,7 @@ class materialesControler extends Controller
     {
         // Validación de los datos
         $validacion = $request->validate([
-            'nombre' => 'required|regex:/^[a-zA-Z\s.\'-]+$/|max:50',
+            'nombreProducto' => 'required|regex:/^[a-zA-Z\s.\'-]+$/|max:50',
             'peso' => 'required|numeric|min:0',
             'caracteristicasProducto' => 'required|string|max:255',
             'ancho' => 'required|numeric|min:0',
@@ -66,12 +66,12 @@ class materialesControler extends Controller
             
         ],
         [
-            'nombre.required' => 'El nombre es obligatorio. Por favor, ingresa este campo.',
-            'nombre.regex' => 'El nombre solo puede contener letras, espacios, puntos, apóstrofes y guiones.',
-            'nombre.max' => 'El nombre no puede tener más de 50 caracteres.',
+            'nombreProducto.required' => 'El nombre es obligatorio. Por favor, ingresa este campo.',
+            'nombreProducto.regex' => 'El nombre solo puede contener letras, espacios, puntos, apóstrofes y guiones.',
+            'nombreProducto.max' => 'El nombre no puede tener más de 50 caracteres.',
         ]
-    
     );
+
     
         // Inserción en la base de datos
         DB::table('materiales')->insert([
@@ -124,7 +124,7 @@ class materialesControler extends Controller
     {
 
         $validacion = $request->validate([
-            'nombre' => 'required|regex:/^[a-zA-Z\s.\'-]+$/|max:50',
+            'nombreProducto' => 'required|regex:/^[a-zA-Z\s.\'-]+$/|max:50',
             'peso' => 'required|numeric|min:0',
             'caracteristicasProducto' => 'required|string|max:255',
             'ancho' => 'required|numeric|min:0',
@@ -138,11 +138,10 @@ class materialesControler extends Controller
             
         ],
         [
-            'nombre.required' => 'El nombre es obligatorio. Por favor, ingresa este campo.',
-            'nombre.regex' => 'El nombre solo puede contener letras, espacios, puntos, apóstrofes y guiones.',
-            'nombre.max' => 'El nombre no puede tener más de 50 caracteres.',
+            'nombreProducto.required' => 'El nombre es obligatorio. Por favor, ingresa este campo.',
+            'nombreProducto.regex' => 'El nombre solo puede contener letras, espacios, puntos, apóstrofes y guiones.',
+            'nombreProducto.max' => 'El nombre no puede tener más de 50 caracteres.',
         ]
-    
     );
 
         DB::table('materiales')->where('materialID', $id)->update([
