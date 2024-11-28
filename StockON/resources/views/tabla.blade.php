@@ -53,8 +53,8 @@
                     <td>a:{{ $material->ancho ?? 'N/A' }}, h:{{ $material->alto ?? 'N/A' }}, l:{{ $material->largo ?? 'N/A' }}</td>
                     <td>
                         {{ $material->disponibilidad ? 'Sí' : 'No' }}
-                        <button class="btn-action" onclick="agregarCantidad()">➕</button>
-                        <button class="btn-action" onclick="restarCantidad()">➖</button>
+                        {{-- <button class="btn-action" onclick="agregarCantidad()">➕</button>
+                        <button class="btn-action" onclick="restarCantidad()">➖</button> --}}
                     </td>
                     <td>${{ number_format($material->precio, 2) }}</td>
                     <td>
