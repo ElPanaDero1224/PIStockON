@@ -1,87 +1,91 @@
-
-
-
 @extends('plantillas.cabeza2')
-
-@section('css')
-    @vite('resources/css/UPDmaterial.css')
-@endsection
 
 @section('contenido')
 
-
-<form method="POST" action="{{ route('modMaterial', $material->materialID) }}">
-    @csrf
-    @method('put')
-    <div class="form-group">
-        <label for="nombreProducto">Nombre del producto:</label>
-        <input type="text" name="nombreProducto" value="{{$material->nombre}}">
-        <small class="text-danger">{{ $errors->first('nombreProducto') }}</small>
+<div class="card mx-auto m-5" style="max-width: 500px;">
+    <div class="card-header text-center">
+        <h4>Modificar Material</h4>
     </div>
 
-    <div class="form-group">
-        <label for="peso">Peso del producto:</label>
-        <input type="text" name="peso" value="{{ $material->peso }}">
-        <small class="text-danger">{{ $errors->first('peso') }}</small>
-    </div>
+    <form method="POST" action="{{ route('modMaterial', $material->materialID) }}" class="p-4">
+        @csrf
+        @method('put')
 
-    <div class="form-group">
-        <label for="caracteristicasProducto">Características del producto:</label>
-        <input type="text" name="caracteristicasProducto" value="{{$material->caracteristicas}}">
-        <small class="text-danger">{{ $errors->first('caracteristicasProducto') }}</small>
-    </div>
-
-    <div class="form-group">
-        <label>Dimensiones del producto:</label>
-        <div class="dimension-inputs">
-            <input type="number" placeholder="Ancho" name="ancho" value="{{$material->ancho}}">
-            <small class="text-danger">{{ $errors->first('ancho') }}</small>
-            <input type="number" placeholder="Largo" name="largo" value="{{$material->largo}}">
-            <small class="text-danger">{{ $errors->first('largo') }}</small>
-            <input type="number" placeholder="Alto" name="alto" value="{{$material->alto}}">
-            <small class="text-danger">{{ $errors->first('alto') }}</small>
+        <div class="form-group mb-3">
+            <label for="nombreProducto">Nombre del producto:</label>
+            <input type="text" class="form-control" name="nombreProducto" value="{{ $material->nombre }}" placeholder="Ingrese el nombre del producto">
+            <small class="text-danger">{{ $errors->first('nombreProducto') }}</small>
         </div>
-    </div>
 
-    <div class="form-group">
-        <label for="precaucion">Medidas de precaución:</label>
-        <input type="text" name="precaucion" value="{{$material->precaucion}}">
-        <small class="text-danger">{{ $errors->first('precaucion') }}</small>
-    </div>
+        <div class="form-group mb-3">
+            <label for="peso">Peso del producto:</label>
+            <input type="text" class="form-control" name="peso" value="{{ $material->peso }}" placeholder="Ingrese el peso del producto">
+            <small class="text-danger">{{ $errors->first('peso') }}</small>
+        </div>
 
-    <div class="form-group">
-        <label for="codigoLote">Código del lote:</label>
-        <input type="text" name="codigoLote" value="{{$material->codigoLote}}">
-        <small class="text-danger">{{ $errors->first('codigoLote') }}</small>
-    </div>
+        <div class="form-group mb-3">
+            <label for="caracteristicasProducto">Características del producto:</label>
+            <input type="text" class="form-control" name="caracteristicasProducto" value="{{ $material->caracteristicas }}" placeholder="Ingrese las características">
+            <small class="text-danger">{{ $errors->first('caracteristicasProducto') }}</small>
+        </div>
 
-    <div class="form-group">
-        <label for="precio">Precio del producto:</label>
-        <input type="number" name="precio" step="0.01" value="{{$material->precio}}">
-        <small class="text-danger">{{ $errors->first('precio') }}</small>
-    </div>
+        <div class="form-group mb-3">
+            <label>Dimensiones del producto:</label>
+            <div class="row g-2">
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Ancho" name="ancho" value="{{ $material->ancho }}">
+                    <small class="text-danger">{{ $errors->first('ancho') }}</small>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Largo" name="largo" value="{{ $material->largo }}">
+                    <small class="text-danger">{{ $errors->first('largo') }}</small>
+                </div>
+                <div class="col">
+                    <input type="number" class="form-control" placeholder="Alto" name="alto" value="{{ $material->alto }}">
+                    <small class="text-danger">{{ $errors->first('alto') }}</small>
+                </div>
+            </div>
+        </div>
 
-    <div class="form-group">
-        <label for="fabricante">Fabricante:</label>
-        <input type="text" name="fabricante" value="{{$material->fabricante}}">
-        <small class="text-danger">{{ $errors->first('fabricante') }}</small>
-    </div>
+        <div class="form-group mb-3">
+            <label for="precaucion">Medidas de precaución:</label>
+            <input type="text" class="form-control" name="precaucion" value="{{ $material->precaucion }}" placeholder="Ingrese medidas de precaución">
+            <small class="text-danger">{{ $errors->first('precaucion') }}</small>
+        </div>
 
-    <div class="form-group">
-        <label for="material">Material:</label>
-        <input type="text" name="material" value="{{$material->material}}">
-        <small class="text-danger">{{ $errors->first('material') }}</small>
-    </div>
+        <div class="form-group mb-3">
+            <label for="codigoLote">Código del lote:</label>
+            <input type="text" class="form-control" name="codigoLote" value="{{ $material->codigoLote }}" placeholder="Ingrese el código del lote">
+            <small class="text-danger">{{ $errors->first('codigoLote') }}</small>
+        </div>
 
-    <div class="buttons">
-        <a href="{{ route('tabla') }}" class="btn btn-primary" style="background-color: #fa6a6af7; color: rgb(0, 0, 0); border: none; padding: 10px 20px; border-radius: 5px;">
-            <strong>cancelar</strong>
-        </a>
-        <button type="submit" class="btn" style="background-color:#afcae3">
-            <strong>Actualizar</strong>
-        </button> 
-    </div>
-</form>
+        <div class="form-group mb-3">
+            <label for="precio">Precio del producto:</label>
+            <input type="number" class="form-control" name="precio" step="0.01" value="{{ $material->precio }}" placeholder="Ingrese el precio">
+            <small class="text-danger">{{ $errors->first('precio') }}</small>
+        </div>
 
+        <div class="form-group mb-3">
+            <label for="fabricante">Fabricante:</label>
+            <input type="text" class="form-control" name="fabricante" value="{{ $material->fabricante }}" placeholder="Ingrese el fabricante">
+            <small class="text-danger">{{ $errors->first('fabricante') }}</small>
+        </div>
 
-@endsection 
+        <div class="form-group mb-4">
+            <label for="material">Material:</label>
+            <input type="text" class="form-control" name="material" value="{{ $material->material }}" placeholder="Ingrese el material">
+            <small class="text-danger">{{ $errors->first('material') }}</small>
+        </div>
+
+        <div class="d-flex justify-content-center gap-3">
+            <a href="{{ route('tabla') }}" class="btn btn-danger">
+                <strong>Cancelar</strong>
+            </a>
+            <button type="submit" class="btn" style="background-color:#afcae3">
+                <strong>Actualizar</strong>
+            </button>
+        </div>
+    </form>
+</div>
+
+@endsection
