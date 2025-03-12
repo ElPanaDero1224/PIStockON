@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: stockon_nginx
+    ports:
+      - "8080:80"
+    volumes:
+      - ./laravel:/var/www/html
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - php
+
+  php:
+    build:
+      context: .
+      dockerfile: Podmanfile
+    container_name: stockon_php
+    volumes:
+      - ./laravel:/var/www/html
+    ports:
+    - "9000:9000"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:8.0
+    container_name: stockon_db
+    environment:
+      MYSQL_DATABASE: stockon
+      MYSQL_USER: stockon
+      MYSQL_ROOT_PASSWORD: StockOn_DB_2025
+      MYSQL_PASSWORD: StockOn+2025
+    volumes:
+      - db_data:/var/lib/mysql
+
+volumes:
+  db_data:

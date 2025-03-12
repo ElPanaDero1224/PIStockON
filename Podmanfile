@@ -15,21 +15,27 @@ RUN apk add --no-cache \
     mysql-client \
     shadow \
     composer \
-    php83-tokenizer php83-session php83-fileinfo php83-dom php83-xml php83-bcmath php83-xmlwriter
+    php83-tokenizer php83-session php83-fileinfo php83-dom php83-xml php83-bcmath php83-xmlwriter \
+    npm
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg --with-webp
 RUN docker-php-ext-install gd pdo pdo_mysql
 
 # Configuración de Laravel
-WORKDIR /var/www
+WORKDIR /var/www/html
 
 # Copiar archivos de Laravel
-COPY . .
+COPY laravel/ .
 
 # Instalar dependencias de PHP
 RUN composer install --no-dev --prefer-dist --no-progress --no-interaction
+RUN npm install && npm run build
 
-# Ajustar permisos
-RUN chown -R www-data:www-data . && \
-    chmod -R 775 storage bootstrap/cache
+# Permisos
+RUN chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html/storage /var/www/html/bootstrap/cache
 
-CMD ["php-fpm"]
+# Generación de la clave de encriptación
+php artisan key:generate
+
+# Migraciones de bases de datos
+RUN php artisan migrate
