@@ -25,8 +25,8 @@ return new class extends Migration
             $table->string('ciudad', 100)->nullable(); // Ciudad
 
             // Relación con la tabla empresa
-            $table->unsignedBigInteger('IDempresa'); 
-            $table->foreign('IDempresa')->references('empresaID')->on('empresa')->onDelete('cascade');
+            $table->unsignedBigInteger('id_empresa'); 
+            $table->foreign('id_empresa')->references('id')->on('empresa')->onDelete('cascade');
 
             $table->timestamps(); // Campos de timestamps (created_at y updated_at)
         });

@@ -11,17 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('empresa', function (Blueprint $table) {
+        Schema::create('inventarios', function (Blueprint $table) {
             $table->id('id');
-            $table->string('numeroRegistro', 14);
             $table->string('nombre', 255);
-            $table->string('tipo', 255);
-            $table->string('correo', 255);
-            $table->string('contrasenia',255);
-            $table->string('numTelefono',20);
-            $table->string('pais', 50);
-            $table->string('region', 50);
-            $table->string('direccion', 300);
+            $table->unsignedBigInteger('id_empresa'); 
+            $table->unsignedBigInteger('id_tipoInventario'); 
+
+            $table->foreign('id_empresa')->references('id')->on('empresa')->onDelete('cascade');
+            $table->foreign('id_tipoInventario')->references('id')->on('tipo_inventarios')->onDelete('cascade');
+
             $table->timestamps();
         });
     }
@@ -31,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('empresa');
+        Schema::dropIfExists('inventarios');
     }
 };
