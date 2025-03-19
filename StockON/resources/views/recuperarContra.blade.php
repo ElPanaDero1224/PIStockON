@@ -1,6 +1,12 @@
 
 @extends('plantillas.cabeza')
 
+<div class="fixed-top vh-100 vw-100" style="
+    background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)), url({{ asset('img/logInBackground.png') }}) center/cover;
+    z-index: -1;">
+</div>
+
+
 @section('titulo', 'Iniciar Sesion')
 
 @section('contenido')

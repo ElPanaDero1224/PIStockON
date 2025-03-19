@@ -45,7 +45,7 @@ class controladorVistas extends Controller
 
         if ($empresa) {
             // Guardar el ID en la sesión
-            session(['empresaID' => $empresa->empresaID]);
+            session(['empresaID' => $empresa->id]);
             return redirect()->route('menu');
         } else {
             return back()->withErrors(['email' => 'Credenciales incorrectas.']);
@@ -61,24 +61,34 @@ class controladorVistas extends Controller
 
         $validacion = $peticiones->validate([
             // Validaciones de cada campo
-            'nombre' => 'required|alpha:ascii|max:50',
-            'email' => 'required|email:rfc,dns',
+            'nombre' => 'required|alpha:ascii|max:255',
+            'numeroRegistro' => 'required|string|max:14',
+            'tipo' => 'required|string|max:255',
+            'correo' => 'required|email:rfc,dns|max:255',
             'contrasenia' => [
                 'required',
                 'string',
                 'min:8', 
-                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/',
             ],
-            'telefono' => ['required', 'regex:/^\+?[0-9\s\-\(\)]+$/'],
+            'numTelefono' => ['required', 'regex:/^\+?[0-9\s\-\(\)]+$/'],
+            'pais' => 'required|string|max:50',
+            'region' => 'required|string|max:50',
+            'direccion' => 'required|string|max:300',
         ], [
-        
             'nombre.required' => 'El campo nombre es obligatorio.',
             'nombre.alpha' => 'El nombre solo puede contener letras.',
-            'nombre.max' => 'El nombre no puede tener más de 50 caracteres.',
-        
-            'email.required' => 'El campo correo electrónico es obligatorio.',
-            'email.email' => 'El correo electrónico debe tener un formato válido.',
-        
+            'nombre.max' => 'El nombre no puede tener más de 255 caracteres.',
+    
+            'numeroRegistro.required' => 'El campo número de registro es obligatorio.',
+            'numeroRegistro.max' => 'El número de registro no puede tener más de 14 caracteres.',
+    
+            'tipo.required' => 'El campo tipo es obligatorio.',
+            'tipo.max' => 'El tipo no puede tener más de 255 caracteres.',
+    
+            'correo.required' => 'El campo correo electrónico es obligatorio.',
+            'correo.email' => 'El correo electrónico debe tener un formato válido.',
+            'correo.max' => 'El correo electrónico no puede tener más de 255 caracteres.',
+    
             'contrasenia.required' => 'La contraseña es obligatoria.',
             'contrasenia.min' => 'La contraseña debe tener al menos 8 caracteres.',
             'contrasenia.regex' => 'La contraseña debe incluir al menos: 
@@ -86,27 +96,40 @@ class controladorVistas extends Controller
                 - Una letra minúscula,
                 - Un número,
                 - Un carácter especial (@, $, !, %, *, ?, &).',
-        
-            'telefono.required' => 'El número de teléfono es obligatorio.',
-            'telefono.regex' => 'El número de teléfono debe ser válido. Ejemplo: +1234567890 o (123) 456-7890.',
+    
+            'numTelefono.required' => 'El número de teléfono es obligatorio.',
+            'numTelefono.regex' => 'El número de teléfono debe ser válido. Ejemplo: +1234567890 o (123) 456-7890.',
+    
+            'pais.required' => 'El campo país es obligatorio.',
+            'pais.max' => 'El país no puede tener más de 50 caracteres.',
+    
+            'region.required' => 'El campo región es obligatorio.',
+            'region.max' => 'La región no puede tener más de 50 caracteres.',
+    
+            'direccion.required' => 'El campo dirección es obligatorio.',
+            'direccion.max' => 'La dirección no puede tener más de 300 caracteres.',
         ]);
-        
-
+    
         DB::table('empresa')->insert(
             [
-                'nombre'=>$peticiones->input('nombre'),
-                'correo'=>$peticiones->input('email'),
-                'numTelefono'=>$peticiones->input('telefono'), 
-                'contrasenia'=>$peticiones->input('contrasenia'),
-                'created_at'=> Carbon::now(),
-                'updated_at'=> Carbon::now()
+                'nombre' => $peticiones->input('nombre'),
+                'numeroRegistro' => $peticiones->input('numeroRegistro'),
+                'tipo' => $peticiones->input('tipo'),
+                'correo' => $peticiones->input('correo'),
+                'contrasenia' => $peticiones->input('contrasenia'),
+                'numTelefono' => $peticiones->input('numTelefono'),
+                'pais' => $peticiones->input('pais'),
+                'region' => $peticiones->input('region'),
+                'direccion' => $peticiones->input('direccion'),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now()
             ]
-            );
-
-            $empresa = $peticiones->input('nombre');
-
-        session()->flash('registro', '¡La empresa '. $empresa.' Se ha registrado con exito!');
-
+        );
+    
+        $empresa = $peticiones->input('nombre');
+    
+        session()->flash('registro', '¡La empresa '. $empresa.' se ha registrado con éxito!');
+    
         return view('registrarse');
     }
         
