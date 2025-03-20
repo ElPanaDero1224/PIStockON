@@ -2,25 +2,23 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\controladorVistas;
-use App\Http\Controllers\materialesControler;
+use App\Http\Controllers\inventarios;
 use App\Http\Controllers\proveedoresControler;
 use App\Http\Controllers\empleadosControler;
 use App\Http\Controllers\categoriaControler;
 
 
+
+
+
 Route::get('/',[controladorVistas::class, 'iniciarS'])->name('iniciar');
 Route::get('/cerrarSesion', [controladorVistas::class, 'cerrarSesion'])->name('cerrarSesion');
-
-
 Route::get('/registro',[controladorVistas::class, 'registrarse'])->name('registro');
-
 Route::get('/menu',[controladorVistas::class, 'menu'])->name('menu');
 
-#menu del inventario
-Route::get('/inventario',[materialesControler::class, 'index'])->name('tabla');
 
-#vista para agregar material
-Route::get('/agregarMaterial',[materialesControler::class, 'create'])->name('agregarMaterial');
+#ruta para el menu
+Route::get('/inventarios',[inventarios::class, 'index'])->name('tabla');
 
 #vista para ver la lista de los proveedores
 Route::get('/proveedores', [proveedoresControler::class, 'index'])->name('proveedores');
@@ -51,7 +49,7 @@ Route::post('/iniciar', [controladorVistas::class, 'iniciar'])->name('in');
 
 Route::post('/signin', [controladorVistas::class, 'signin'])->name('signin');
 
-Route::post('/addmaterial', [materialesControler::class, 'store'])->name('addmaterial');
+
 
 Route::post('/addproveedor', [proveedoresControler::class, 'store'])->name('addProveedor');
 
@@ -83,9 +81,3 @@ Route::put('/proveedores/{id}', [proveedoresControler::class, 'update'])->name('
 #delete
 Route::delete('/eliminarProveedor/{id}', [proveedoresControler::class, 'destroy'])->name('rutaEliminarProveedor');
 
-
-#materiales
-Route::get('/verModificarMaterial/{id}/edit', [materialesControler::class,'edit'])->name('verModMateriales');
-Route::put('/materiales/{id}', [materialesControler::class, 'update'])->name('modMaterial');
-#eliminar
-Route::delete('/eliminarMaterial/{id}', [materialesControler::class, 'destroy'])->name('rutaEliminarMaterial');
