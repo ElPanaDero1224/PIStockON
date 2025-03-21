@@ -105,10 +105,9 @@
         }
 
         .main-content {
+            padding-top: 200px;
             margin-left: var(--sidebar-width);
             transition: margin-left 0.3s;
-            padding: 20px;
-            margin-top: var(--header-height);
         }
 
         .sidebar.collapsed + .main-content {
@@ -194,95 +193,175 @@
 
 
 <div class="main-content">
-    <div class="filtros-container">
-        <table class="tabla-materiales">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Código lote</th>
-                    <th>Precio unitario</th>
-                    <th>Cantidad</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Todos los registros de la imagen -->
-                <tr>
-                    <td>Hierro</td>
-                    <td>12343421</td>
-                    <td>$50</td>
-                    <td>35</td>
-                    <td>
-                        <button class="btn-accion ver-mas">Ver más</button>
-                        <button class="btn-accion eliminar">Eliminar campo</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Acero</td>
-                    <td>21212112</td>
-                    <td>$60</td>
-                    <td>100</td>
-                    <td>
-                        <button class="btn-accion ver-mas">Ver más</button>
-                        <button class="btn-accion eliminar">Eliminar campo</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Cobre</td>
-                    <td>12131313</td>
-                    <td>$87</td>
-                    <td>20</td>
-                    <td>
-                        <button class="btn-accion ver-mas">Ver más</button>
-                        <button class="btn-accion eliminar">Eliminar campo</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Acero</td>
-                    <td>12133131</td>
-                    <td>$23</td>
-                    <td class="cantidad-cero">0</td>
-                    <td>
-                        <button class="btn-accion ver-mas">Ver más</button>
-                        <button class="btn-accion eliminar">Eliminar campo</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Plata</td>
-                    <td>1378</td>
-                    <td>$20</td>
-                    <td>12</td>
-                    <td>
-                        <button class="btn-accion ver-mas">Ver más</button>
-                        <button class="btn-accion eliminar">Eliminar campo</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Oro</td>
-                    <td>178371837</td>
-                    <td>$15</td>
-                    <td>89</td>
-                    <td>
-                        <button class="btn-accion ver-mas">Ver más</button>
-                        <button class="btn-accion eliminar">Eliminar campo</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Oro-12</td>
-                    <td>3142313</td>
-                    <td>$2087</td>
-                    <td>43</td>
-                    <td>
-                        <button class="btn-accion ver-mas">Ver más</button>
-                        <button class="btn-accion eliminar">Eliminar campo</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="container-fluid px-4">
+        <!-- Fila para los botones superiores -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="d-flex justify-content-between">
+                    <button class="btn btn-success btn-lg fw-bold">
+                        <i class="fas fa-plus me-2"></i>Agregar Material
+                    </button>
+                    
+                    <button class="btn btn-primary btn-lg fw-bold">
+                        <i class="fas fa-chart-line me-2"></i>Graficar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="filtros-bar bg-light p-3 rounded-3 shadow-sm mb-4">
+            <div class="row g-3">
+                <!-- Grupo 1: Búsqueda Material -->
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" 
+                               class="form-control form-control-lg" 
+                               placeholder="Buscar Material">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="btn-group mt-2 w-100">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-sort-alpha-down"></i> A-Z
+                        </button>
+                        <button class="btn btn-primary">
+                            <i class="fas fa-sort-alpha-down-alt"></i> Z-A
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Grupo 2: Código de Lote -->
+                <div class="col-md-4">
+                    <div class="input-group">
+                        <input type="text" 
+                               class="form-control form-control-lg" 
+                               placeholder="Buscar Código de lote">
+                        <button class="btn btn-outline-secondary" type="button">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="btn-group mt-2 w-100">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-sort-numeric-down-alt"></i> Mayor a menor
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Botón Limpiar -->
+                <div class="col-md-4 d-flex align-items-end">
+                    <button class="btn btn-danger w-100 py-2">
+                        <i class="fas fa-eraser me-2"></i>Limpiar Filtros
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contenedor de la tabla con scrollbar -->
+        <div class="filtros-container" style="margin-top: 20px; overflow-y: auto; max-height: 500px;">
+            <table class="tabla-materiales">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Código lote</th>
+                        <th>Precio unitario</th>
+                        <th>Cantidad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Todos los registros de la imagen -->
+                    <tr>
+                        <td>Acero</td>
+                        <td>21212112</td>
+                        <td>$60</td>
+                        <td>100</td>
+                        <td>
+                            <button class="btn-accion ver-mas">Ver más</button>
+                            <button class="btn-accion eliminar">Eliminar campo</button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Acero</td>
+                        <td>12133131</td>
+                        <td>$23</td>
+                        <td class="cantidad-cero">0</td>
+                        <td>
+                            <button class="btn-accion ver-mas">Ver más</button>
+                            <button class="btn-accion eliminar">Eliminar campo</button>
+                        </td>
+                    </tr>
+
+                    <!-- Repetir filas según sea necesario -->
+                    <tr>
+                        <td>Acero</td>
+                        <td>12133131</td>
+                        <td>$23</td>
+                        <td class="cantidad-cero">0</td>
+                        <td>
+                            <button class="btn-accion ver-mas">Ver más</button>
+                            <button class="btn-accion eliminar">Eliminar campo</button>
+                        </td>
+                    </tr>
+                                        <tr>
+                        <td>Acero</td>
+                        <td>12133131</td>
+                        <td>$23</td>
+                        <td class="cantidad-cero">0</td>
+                        <td>
+                            <button class="btn-accion ver-mas">Ver más</button>
+                            <button class="btn-accion eliminar">Eliminar campo</button>
+                        </td>
+                    </tr>
+
+
+
+                    <!-- Agrega más filas aquí si es necesario -->
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 
 <style>
+    .filtros-bar {
+        background: #f8f9fa;
+        border: 1px solid #dee2e6;
+    }
+    
+    .btn-group .btn {
+        flex: 1 1 auto;
+        padding: 8px 12px;
+    }
+    
+    .form-control-lg {
+        font-size: 1rem;
+        padding: 12px 15px;
+    }
+    
+    .btn-outline-secondary {
+        border-color: #dee2e6;
+    }
+    
+    .btn-primary {
+        background-color: #17a2b8;
+        border-color: #17a2b8;
+    }
+    
+    .btn-primary:hover {
+        background-color: #138496;
+        border-color: #117a8b;
+    }
+    
+    .btn-danger {
+        background-color: #dc3545;
+        border-color: #dc3545;
+        height: 42px;
+    }
+
     .tabla-materiales {
         width: 100%;
         border-collapse: collapse;
@@ -304,7 +383,7 @@
     }
 
     .tabla-materiales td {
-        padding: 3px;
+        padding: 1px;
         border-bottom: 2px solid #ecf0f1;
         vertical-align: middle;
         color: #34495e;
@@ -350,11 +429,40 @@
     tr:hover td {
         background-color: #f8f9fa;
     }
+
+    
+
+    /* Estilos personalizados para el scrollbar */
+    .filtros-container::-webkit-scrollbar {
+        width: 12px;
+    }
+
+    .filtros-container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+
+    .filtros-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+        border: 3px solid #f1f1f1;
+    }
+
+    .filtros-container::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
 </style>
 
-
-
 <script>
+
+document.addEventListener("DOMContentLoaded", function() {
+    let filas = document.querySelectorAll(".tabla-materiales tbody tr");
+    if (filas.length > 0) {
+        let alturaFila = filas[0].offsetHeight; // Altura de una fila
+        document.querySelector(".filtros-container").style.maxHeight = `${alturaFila * 7}px`;
+    }
+});
+
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
         const icon = document.getElementById('sidebar-icon');
