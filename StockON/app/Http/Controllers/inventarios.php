@@ -39,13 +39,22 @@ class inventarios extends Controller
     }
 
 
-    public function verGrafica()
+    public function verGraficaBarras()
     {
         if (!session()->has('empresaID')) {
 
             return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a la tabla.');
         }
-        return view('graficaView');
+        return view('graficaBarrasView');
+    }
+
+    public function verGraficaPuntos()
+    {
+        if (!session()->has('empresaID')) {
+
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a la tabla.');
+        }
+        return view('graficaPuntosView');
     }
     
 }

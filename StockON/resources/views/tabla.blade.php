@@ -63,11 +63,11 @@
                         </button>
                     </a>
                     
-                    <a href="{{ route('verGrafica') }}">
+                    <a href="{{ route('verGraficaBarras') }}">
                     <button class="btn btn-primary btn-lg fw-bold">
                         <i class="fas fa-chart-line me-2"></i>Graficar
                     </button>
-                </a>
+                     </a>
 
                 </div>
             </div>

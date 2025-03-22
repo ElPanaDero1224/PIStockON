@@ -25,7 +25,8 @@ Route::get('/agregarInventarios',[inventarios::class, 'add_inventario_vw'])->nam
 Route::get('/agregarProductos',[inventarios::class, 'add_productos_vw'])->name('addProductos');
 
 #ruta para la grafica
-Route::get('/verGraficas', [inventarios::class, 'verGrafica'])->name('verGrafica');
+Route::get('/verGraficasBarras', [inventarios::class, 'verGraficaBarras'])->name('verGraficaBarras');
+Route::get('/verGraficasPuntos', [inventarios::class, 'verGraficaPuntos'])->name('verGraficaPuntos');
 
 
 
