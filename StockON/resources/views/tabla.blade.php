@@ -1,151 +1,5 @@
 @extends('plantillas.cabeza2')
 
-@section('css')
-    @vite('resources/css/tabla.css')
-    <style>
-        :root {
-            --header-height: 101px;
-            --sidebar-width: 250px;
-            --sidebar-collapsed-width: 50px;
-            --section-header-bg: #6c757d;
-            --item-bg: #5a6268;
-            --active-border: #ffd700;
-            --button-green: #28a745;
-            --button-blue: #007bff;
-        }
-
-        .sidebar-container {
-            position: fixed;
-            left: 0;
-            top: var(--header-height);
-            bottom: 0;
-            z-index: 999;
-            transition: all 0.3s;
-        }
-
-        .sidebar {
-            width: var(--sidebar-width);
-            height: calc(100vh - var(--header-height));
-            background-color: #bec2c5;
-            border-right: 1px solid #dee2e6;
-            overflow-x: hidden;
-            overflow-y: auto;
-            transition: all 0.3s;
-            position: relative;
-            padding: 10px;
-        }
-
-        .sidebar.collapsed {
-            width: var(--sidebar-collapsed-width);
-        }
-
-        .sidebar-content {
-            padding: 10px;
-            opacity: 1;
-            transition: opacity 0.2s;
-        }
-
-        .sidebar-section {
-            margin-bottom: 15px;
-        }
-
-        .section-header {
-            background-color: var(--section-header-bg);
-            color: white;
-            padding: 10px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .section-items {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
-
-        .section-items.show {
-            max-height: 500px;
-        }
-
-        .sidebar-item {
-            background-color: var(--item-bg);
-            color: white;
-            padding: 8px 15px;
-            margin: 2px 0;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .sidebar-item.active {
-            border-left: 4px solid var(--active-border);
-        }
-
-        .toggle-sidebar {
-            background: #61777a !important; /* Color azul similar a los botones */
-            border-color: #000000 !important;
-            color: white;
-            position: absolute;
-            right: -15px;
-            top: 10px;
-            background: white;
-            border: 1px solid #dee2e6;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-        }
-
-        .main-content {
-            padding-top: 200px;
-            margin-left: var(--sidebar-width);
-            transition: margin-left 0.3s;
-        }
-
-        .sidebar.collapsed + .main-content {
-            margin-left: var(--sidebar-collapsed-width);
-        }
-
-        /* Estilos de los botones */
-        .btn-inventario {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            text-align: center;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-gestionar {
-            background-color: #17a2b8; /* Color de la imagen */
-        }
-
-        .btn-gestionar:hover {
-            background-color: #138496;
-        }
-
-        .btn-agregar {
-            background-color: #07ff3d; /* Color de la imagen */
-            color: black;
-        }
-
-        .btn-agregar:hover {
-            background-color: #e0a800;
-        }
-    </style>
-@endsection
 
 @section('contenido')
 
@@ -158,8 +12,13 @@
 
         <div class="sidebar-content">
             <!-- Botones de Inventarios -->
-            <button class="btn-inventario btn-gestionar">Gestionar Inventarios</button>
-            <button class="btn-inventario btn-agregar">Agregar Inventario</button>
+            <a href="URL_DESTINO_GESTIONAR">
+                <button class="btn-inventario btn-gestionar">Gestionar Inventarios</button>
+            </a>
+            
+            <a href="{{ route('addInventario') }}">
+                <button class="btn-inventario btn-agregar">Agregar Inventario</button>
+            </a>
 
             <!-- Sección Venta -->
             <div class="sidebar-section">
@@ -198,9 +57,11 @@
         <div class="row mb-4">
             <div class="col-12">
                 <div class="d-flex justify-content-between">
-                    <button class="btn btn-success btn-lg fw-bold">
-                        <i class="fas fa-plus me-2"></i>Agregar Material
-                    </button>
+                    <a href="{{ route('addProductos') }}">
+                        <button class="btn btn-success btn-lg fw-bold">
+                            <i class="fas fa-plus me-2"></i>Agregar Material
+                        </button>
+                    </a>
                     
                     <button class="btn btn-primary btn-lg fw-bold">
                         <i class="fas fa-chart-line me-2"></i>Graficar
@@ -327,6 +188,150 @@
 </div>
 
 <style>
+
+:root {
+            --header-height: 101px;
+            --sidebar-width: 250px;
+            --sidebar-collapsed-width: 50px;
+            --section-header-bg: #6c757d;
+            --item-bg: #5a6268;
+            --active-border: #ffd700;
+            --button-green: #28a745;
+            --button-blue: #007bff;
+        }
+
+        .sidebar-container {
+            position: fixed;
+            left: 0;
+            top: var(--header-height);
+            bottom: 0;
+            z-index: 999;
+            transition: all 0.3s;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--header-height));
+            background-color: #bec2c5;
+            border-right: 1px solid #dee2e6;
+            overflow-x: hidden;
+            overflow-y: auto;
+            transition: all 0.3s;
+            position: relative;
+            padding: 10px;
+        }
+
+        .sidebar.collapsed {
+            width: var(--sidebar-collapsed-width);
+        }
+
+
+        .sidebar-content {
+            padding: 10px;
+            opacity: 1;
+            transition: opacity 0.2s;
+        }
+
+        .sidebar-section {
+            margin-bottom: 15px;
+        }
+
+        .section-header {
+            background-color: var(--section-header-bg);
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .section-items.show {
+            max-height: 500px;
+        }
+
+        .sidebar-item {
+            background-color: var(--item-bg);
+            color: white;
+            padding: 8px 15px;
+            margin: 2px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .sidebar-item.active {
+            border-left: 4px solid var(--active-border);
+        }
+
+        .toggle-sidebar {
+            background: #61777a !important; /* Color azul similar a los botones */
+            border-color: #000000 !important;
+            color: white;
+            position: absolute;
+            right: -15px;
+            top: 10px;
+            background: white;
+            border: 1px solid #dee2e6;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1000;
+        }
+
+        .main-content {
+            position: relative;
+            padding-top: 50px;
+            margin-left: var(--sidebar-width);
+            transition: margin-left 0.3s;
+        }
+
+        .sidebar.collapsed + .main-content {
+            margin-left: var(--sidebar-collapsed-width);
+        }
+
+        /* Estilos de los botones */
+        .btn-inventario {
+            width: 100%;
+            padding: 10px;
+            font-size: 14px;
+            text-align: center;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .btn-gestionar {
+            background-color: #17a2b8; /* Color de la imagen */
+        }
+
+        .btn-gestionar:hover {
+            background-color: #138496;
+        }
+
+        .btn-agregar {
+            background-color: #07ff3d; /* Color de la imagen */
+            color: black;
+        }
+
+        .btn-agregar:hover {
+            background-color: #e0a800;
+        }
     .filtros-bar {
         background: #f8f9fa;
         border: 1px solid #dee2e6;
@@ -370,7 +375,7 @@
         box-shadow: 0 6px 12px rgba(0,0,0,0.2);
         font-size: 18px;
         border-radius: 8px;
-        overflow: hidden;
+        overflow: auto;
     }
 
     .tabla-materiales th {

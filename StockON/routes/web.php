@@ -20,6 +20,11 @@ Route::get('/menu',[controladorVistas::class, 'menu'])->name('menu');
 #ruta para el menu
 Route::get('/inventarios',[inventarios::class, 'index'])->name('tabla');
 
+#ruta para el formulario para agregar un inventario
+Route::get('/agregarInventarios',[inventarios::class, 'add_inventario_vw'])->name('addInventario');
+
+Route::get('/agregarProductos',[inventarios::class, 'add_productos_vw'])->name('addProductos');
+
 #vista para ver la lista de los proveedores
 Route::get('/proveedores', [proveedoresControler::class, 'index'])->name('proveedores');
 

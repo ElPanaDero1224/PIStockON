@@ -11,13 +11,32 @@ class inventarios extends Controller
         if (!session()->has('empresaID')) {
 
             return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a la tabla.');
-        }
-    
-
-        $empresaID = session('empresaID');
-    
+        }    
     
         return view('tabla');
+    }
+
+    public function add_inventario_vw()
+    {
+        if (!session()->has('empresaID')) {
+
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a la tabla.');
+        }
+
+        return view('formularioAddInventario');
+
+    }
+
+
+    public function add_productos_vw()
+    {
+        if (!session()->has('empresaID')) {
+
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a la tabla.');
+        }
+
+        return view('formularioAddProductos');
+
     }
     
 }
