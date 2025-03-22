@@ -34,9 +34,18 @@ class inventarios extends Controller
 
             return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a la tabla.');
         }
-
         return view('formularioAddProductos');
 
+    }
+
+
+    public function verGrafica()
+    {
+        if (!session()->has('empresaID')) {
+
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a la tabla.');
+        }
+        return view('graficaView');
     }
     
 }

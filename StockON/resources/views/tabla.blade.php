@@ -63,9 +63,12 @@
                         </button>
                     </a>
                     
+                    <a href="{{ route('verGrafica') }}">
                     <button class="btn btn-primary btn-lg fw-bold">
                         <i class="fas fa-chart-line me-2"></i>Graficar
                     </button>
+                </a>
+
                 </div>
             </div>
         </div>
