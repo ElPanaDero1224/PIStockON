@@ -127,7 +127,7 @@
 
     <div class="empleados-container">
         <div class="header-actions">
-            <a href="#" class="btn-custom btn-add">
+            <a href="{{route('addEmpleado')}}" class="btn-custom btn-add">
                 <i class="fas fa-user-plus"></i>
                 Agregar empleado
             </a>

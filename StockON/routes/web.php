@@ -48,7 +48,7 @@ Route::get('/empleados', [empleadosControler::class,'index'])->name('empleados')
 
 #Vista del formulario para agregar un empleado
 
-route::get('/formularioEmpleados', [empleadosControler::class, 'create'])->name('agregarEmpleado');
+route::get('/agregarEmpleados', [empleadosControler::class, 'create'])->name('addEmpleado');
 
 
 //metodos para enviar
@@ -66,7 +66,7 @@ Route::post('/addproveedor', [proveedoresControler::class, 'store'])->name('addP
 
 Route::post('/modidifcarProveedorPublicar', [controladorVistas::class, 'modProveedorPost'])->name('modProveedorPost');
 
-Route::post('/addEmpleado', [empleadosControler::class, 'store'])->name('addEmpleado');
+
 
 
 

@@ -38,11 +38,18 @@ class empleadosControler extends Controller
      */
     public function create()
     {
+        if (!session()->has('empresaID')) {
+            // Redirigir al inicio de sesión o a donde prefieras
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a esta página.');
+        }
+    
+        // Si la sesión está activa, proceder con la consulta
+
         $empresaID = session('empresaID');
-        $categorias = DB::table("categorias")
+/*         $categorias = DB::table("categorias")
         ->where('IDempresa', $empresaID)  
-        ->get();
-        return view('agregarEmpleado', compact('categorias'));
+        ->get(); */
+        return view('agregarEmpleado'/* , compact('categorias') */);
     }
 
     /**
