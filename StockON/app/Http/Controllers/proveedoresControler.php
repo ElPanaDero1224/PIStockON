@@ -26,7 +26,7 @@ class proveedoresControler extends Controller
     
         // Realizar la consulta para obtener los proveedores asociados al ID de la empresa
         $proveedores = DB::table('proveedores')
-            ->where('IDempresa', $empresaID)
+            ->where('id_empresa', $empresaID)
             ->get();
     
         // Mostrar la vista con los datos de proveedores
@@ -77,7 +77,7 @@ class proveedoresControler extends Controller
             'horarioAtencion' => $request->input('horario'),
             'pais' => $request->input('pais'),
             'ciudad' => $request->input('ciudad'),
-            'IDempresa' => session('empresaID'), // Ajusta este valor según tu lógica para asociar con la empresa
+            'id_empresa' => session('empresaID'), // Ajusta este valor según tu lógica para asociar con la empresa
             'created_at' => now(),
             'updated_at' => now(),
         ]);
