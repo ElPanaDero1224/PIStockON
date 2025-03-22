@@ -5,7 +5,7 @@ use App\Http\Controllers\controladorVistas;
 use App\Http\Controllers\inventarios;
 use App\Http\Controllers\proveedoresControler;
 use App\Http\Controllers\empleadosControler;
-use App\Http\Controllers\categoriaControler;
+use App\Http\Controllers\puestos;
 
 
 
@@ -29,6 +29,10 @@ Route::get('/verGraficasBarras', [inventarios::class, 'verGraficaBarras'])->name
 Route::get('/verGraficasPuntos', [inventarios::class, 'verGraficaPuntos'])->name('verGraficaPuntos');
 
 
+#categorias
+Route::get('/puestos', [puestos::class, 'index'])->name('puestos');
+Route::get('/agregarPuestos', [puestos::class, 'add_puesto_view'])->name('addPuesto');
+
 
 #vista para ver la lista de los proveedores
 Route::get('/proveedores', [proveedoresControler::class, 'index'])->name('proveedores');
@@ -46,9 +50,6 @@ Route::get('/empleados', [empleadosControler::class,'index'])->name('empleados')
 
 route::get('/formularioEmpleados', [empleadosControler::class, 'create'])->name('agregarEmpleado');
 
-route::get('/categorias', [categoriaControler::class,'index'])->name('categorias');
-
-Route::get('/formularioCategoria', [categoriaControler::class, 'create'])->name('formularioCategoria');
 
 //metodos para enviar
 
@@ -67,17 +68,12 @@ Route::post('/modidifcarProveedorPublicar', [controladorVistas::class, 'modProve
 
 Route::post('/addEmpleado', [empleadosControler::class, 'store'])->name('addEmpleado');
 
-Route::post('/addCategoria', [categoriaControler::class,'store'])->name('agregarCategoria');
+
 
 
 #metodos para realizar actualizaciones y eliminaciones 
 
 #categorias
-
-Route::get('/verModificarCategoria/{id}/edit', [categoriaControler::class,'edit'])->name('verModificarCategorias');
-Route::put('/categoria/{id}', [categoriaControler::class, 'update'])->name('actualizarCategoria');
-#metodos para eliminar
-Route::delete('/eliminarCategoria/{id}', [categoriaControler::class, 'destroy'])->name('rutaEliminarCategoria');
 
 
 #empleados

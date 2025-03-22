@@ -23,13 +23,13 @@ class empleadosControler extends Controller
         // Si la sesión está activa, proceder con la consulta
         $empresaID = session('empresaID');
     
-        $consultarEmpleados = DB::table("empleados as e")
+ /*        $consultarEmpleados = DB::table("empleados as e")
             ->leftJoin("categorias as c", "c.categoriaID", "=", "e.IDcategoria")  // Usamos leftJoin en vez de join
             ->select('e.empleadoID', 'e.nombre', 'e.apellido', 'e.correo', 'e.numTelefono', 'c.nombre as ncategoria', 'e.IDempresa')
             ->where('e.IDempresa', $empresaID)  
-            ->get();
+            ->get(); */
     
-        return view('empleados', compact('consultarEmpleados'));
+        return view('empleados'/* , compact('consultarEmpleados') */);
     }
     
 

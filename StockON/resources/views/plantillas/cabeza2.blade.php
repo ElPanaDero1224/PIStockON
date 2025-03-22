@@ -23,7 +23,7 @@
         <div class="header-right">
             <a href="{{route('menu')}}">Menú</a>
             <a href="{{route('proveedores')}}">Proveedores</a>
-            <a href="{{route('tabla')}}">Inventario</a>
+            <a href="{{route('tabla')}}">Inventarios</a>
             <a href="{{route('empleados')}}">Empleados</a>
             <a href="{{route('cerrarSesion')}}">Cerrar sesion</a>
         </div>

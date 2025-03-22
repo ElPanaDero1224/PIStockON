@@ -3,7 +3,7 @@
 @section('css')
     @vite('resources/css/menu.css')
     <style>
-        .empleados-container {
+        .puestos-container {
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -34,12 +34,6 @@
             border: none;
         }
 
-        .btn-categories {
-            background: linear-gradient(135deg, #2196F3, #1976D2);
-            color: white;
-            border: none;
-        }
-
         .btn-custom:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
@@ -50,7 +44,6 @@
             border-collapse: separate;
             border-spacing: 0 0.75rem;
         }
-        
 
         .table-custom thead th {
             background-color: #b7cde4;
@@ -111,71 +104,63 @@
 @endsection
 
 @section('contenido')
-    @if (session('empleado'))
-    <script>
-        Swal.fire({
-            icon: 'success',
-            title: '¡Éxito!',
-            text: '{{ session('empleado') }}',
-            confirmButtonText: 'Cerrar',
-            customClass: {
-                confirmButton: 'btn-custom btn-add'
-            }
-        });
-    </script>
-    @endif
-
-    <div class="empleados-container">
-        <div class="header-actions">
-            <a href="#" class="btn-custom btn-add">
-                <i class="fas fa-user-plus"></i>
-                Agregar empleado
-            </a>
-            <a href="{{route('puestos')}}" class="btn-custom btn-categories">
-                <i class="fas fa-tags"></i>
-                Ver puestos
-            </a>
-        </div>
-
-        <table class="table-custom">
-            <thead>
-                <tr>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>Correo</th>
-                    <th>Teléfono</th>
-                    <th>Categoría</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Juan Pérez</td>
-                    <td>Gómez</td>
-                    <td>juan@empresa.com</td>
-                    <td>555-1234</td>
-                    <td>Desarrollo</td>
-                    <td>
-                        <div class="action-buttons">
-                            <a href="#" class="btn-action btn-edit">
-                                <i class="fas fa-edit"></i>
-                                Editar
-                            </a>
-                            <form id="form-eliminar-1" action="#" method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-                            <button type="button" class="btn-action btn-delete" onclick="confirmarEliminacion(1)">
-                                <i class="fas fa-trash-alt"></i>
-                                Eliminar
-                            </button>
-                        </div>
-                    </td>
-                </tr>
-                <!-- Más filas... -->
-            </tbody>
-        </table>
+<div class="puestos-container">
+    <div class="header-actions">
+        <a href="{{route('addPuesto')}}" class="btn-custom btn-add">
+            <i class="fas fa-plus"></i>
+            Agregar Puesto
+        </a>
     </div>
+
+    <table class="table-custom">
+        <thead>
+            <tr>
+                <th>Nombre del puesto</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Categoría de Ejemplo 1</td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="#" class="btn-action btn-edit">
+                            <i class="fas fa-edit"></i>
+                            Modificar
+                        </a>
+                        <form id="form-eliminar-1" action="#" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                        <button type="button" class="btn-action btn-delete" onclick="confirmarEliminacion(1)">
+                            <i class="fas fa-trash-alt"></i>
+                            Eliminar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td>Categoría de Ejemplo 2</td>
+                <td>
+                    <div class="action-buttons">
+                        <a href="#" class="btn-action btn-edit">
+                            <i class="fas fa-edit"></i>
+                            Modificar
+                        </a>
+                        <form id="form-eliminar-2" action="#" method="POST" style="display: none;">
+                            @csrf
+                            @method('DELETE')
+                        </form>
+                        <button type="button" class="btn-action btn-delete" onclick="confirmarEliminacion(2)">
+                            <i class="fas fa-trash-alt"></i>
+                            Eliminar
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
 @endsection
 
 <script>
