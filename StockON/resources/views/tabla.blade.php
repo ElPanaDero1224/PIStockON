@@ -31,7 +31,9 @@
                         <li class="sidebar-item">No hay inventarios de venta</li>
                     @else
                         @foreach($inv_ventas as $inventario)
-                            <li class="sidebar-item">{{ $inventario->nombre }}</li>
+                            <a href="{{ route('tabla', ['id_inventario' => $inventario->id]) }}">
+                                <li class="sidebar-item">{{ $inventario->nombre }}</li>
+                            </a>
                         @endforeach
                     @endif
                 </ul>
@@ -48,11 +50,14 @@
                         <li class="sidebar-item">No hay inventarios de stock</li>
                     @else
                         @foreach($inv_compras as $inventario)
-                            <li class="sidebar-item">{{ $inventario->nombre }}</li>
+                            <a href="{{ route('tabla', ['id_inventario' => $inventario->id]) }}">
+                                <li class="sidebar-item">{{ $inventario->nombre }}</li>
+                            </a>
                         @endforeach
                     @endif
                 </ul>
             </div>
+
         </div>
     </div>
 </div>
@@ -65,11 +70,13 @@
         <div class="row mb-4">
             <div class="col-12">
                 <div class="d-flex justify-content-between">
-                    <a href="{{ route('addProductos') }}">
+                    <!-- Botón modificado para agregar producto -->
+                    <a href="{{ route('addProductos', ['id_inventario' => request()->id_inventario]) }}">
                         <button class="btn btn-success btn-lg fw-bold">
-                            <i class="fas fa-plus me-2"></i>Agregar Material
+                            <i class="fas fa-plus me-2"></i> Agregar Producto
                         </button>
                     </a>
+
                     
                     <a href="{{ route('verGraficaBarras') }}">
                     <button class="btn btn-primary btn-lg fw-bold">
@@ -144,54 +151,28 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Todos los registros de la imagen -->
-                    <tr>
-                        <td>Acero</td>
-                        <td>21212112</td>
-                        <td>$60</td>
-                        <td>100</td>
-                        <td>
-                            <button class="btn-accion ver-mas">Ver más</button>
-                            <button class="btn-accion eliminar">Eliminar campo</button>
-                        </td>
-                    </tr>
-
-                    <tr>
-                        <td>Acero</td>
-                        <td>12133131</td>
-                        <td>$23</td>
-                        <td class="cantidad-cero">0</td>
-                        <td>
-                            <button class="btn-accion ver-mas">Ver más</button>
-                            <button class="btn-accion eliminar">Eliminar campo</button>
-                        </td>
-                    </tr>
-
-                    <!-- Repetir filas según sea necesario -->
-                    <tr>
-                        <td>Acero</td>
-                        <td>12133131</td>
-                        <td>$23</td>
-                        <td class="cantidad-cero">0</td>
-                        <td>
-                            <button class="btn-accion ver-mas">Ver más</button>
-                            <button class="btn-accion eliminar">Eliminar campo</button>
-                        </td>
-                    </tr>
-                                        <tr>
-                        <td>Acero</td>
-                        <td>12133131</td>
-                        <td>$23</td>
-                        <td class="cantidad-cero">0</td>
-                        <td>
-                            <button class="btn-accion ver-mas">Ver más</button>
-                            <button class="btn-accion eliminar">Eliminar campo</button>
-                        </td>
-                    </tr>
-
-
-
-                    <!-- Agrega más filas aquí si es necesario -->
+                    @if(is_null($id_inventario))
+                        <tr>
+                            <td colspan="5" class="text-center">Selecciona un inventario para ver sus productos.</td>
+                        </tr>
+                    @elseif($productos->isEmpty())
+                        <tr>
+                            <td colspan="5" class="text-center">No hay productos en este inventario.</td>
+                        </tr>
+                    @else
+                        @foreach($productos as $producto)
+                            <tr>
+                                <td>{{ $producto->nombre }}</td>
+                                <td>{{ $producto->codigoLote }}</td>
+                                <td>${{ number_format($producto->precioUnitario, 2) }}</td>
+                                <td>{{ $producto->cantidad }}</td>
+                                <td>
+                                    <button class="btn-accion ver-mas">Ver más</button>
+                                    <button class="btn-accion eliminar">Eliminar campo</button>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
                 </tbody>
             </table>
         </div>
