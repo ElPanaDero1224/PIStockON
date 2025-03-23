@@ -27,9 +27,13 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <ul class="section-items show">
-                    <li class="sidebar-item">Metales</li>
-                    <li class="sidebar-item">Electrónicos</li>
-                    <li class="sidebar-item">Periféricos</li>
+                    @if($inv_ventas->isEmpty())
+                        <li class="sidebar-item">No hay inventarios de venta</li>
+                    @else
+                        @foreach($inv_ventas as $inventario)
+                            <li class="sidebar-item">{{ $inventario->nombre }}</li>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
 
@@ -40,9 +44,13 @@
                     <i class="fas fa-chevron-down"></i>
                 </div>
                 <ul class="section-items show">
-                    <li class="sidebar-item">Metales</li>
-                    <li class="sidebar-item">Electrónicos</li>
-                    <li class="sidebar-item">Periféricos</li>
+                    @if($inv_compras->isEmpty())
+                        <li class="sidebar-item">No hay inventarios de stock</li>
+                    @else
+                        @foreach($inv_compras as $inventario)
+                            <li class="sidebar-item">{{ $inventario->nombre }}</li>
+                        @endforeach
+                    @endif
                 </ul>
             </div>
         </div>

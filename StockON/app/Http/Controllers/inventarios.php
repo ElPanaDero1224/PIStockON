@@ -9,12 +9,25 @@ class inventarios extends Controller
 {
     public function index()
     {
+        // Verificar si la sesión tiene empresaID
         if (!session()->has('empresaID')) {
-
             return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder a la tabla.');
-        }    
+        }
     
-        return view('tabla');
+        // Obtener inventarios de tipo "Venta" (id_tipoInventario = 1)
+        $inv_ventas = DB::table('inventarios')
+            ->where('id_empresa', session('empresaID'))
+            ->where('id_tipoInventario', 1) // Encadenar métodos where
+            ->get();
+    
+        // Obtener inventarios de tipo "Compra" (id_tipoInventario = 2)
+        $inv_compras = DB::table('inventarios')
+            ->where('id_empresa', session('empresaID'))
+            ->where('id_tipoInventario', 2) // Encadenar métodos where
+            ->get();
+    
+        // Pasar ambas variables a la vista
+        return view('tabla', compact('inv_ventas', 'inv_compras'));
     }
 
     #funciones de la vista para agregar inventarios
