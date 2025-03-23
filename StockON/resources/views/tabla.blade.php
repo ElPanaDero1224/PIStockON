@@ -169,6 +169,7 @@
                                 <td>
                                     <button class="btn-accion ver-mas">Ver más</button>
                                     <button class="btn-accion eliminar">Eliminar campo</button>
+                                    <button class="btn-accion actualizar">Actualizar</button>
                                 </td>
                             </tr>
                         @endforeach
@@ -405,6 +406,11 @@
     .eliminar {
         background: #e74c3c;
         color: white;
+    }
+
+    .actualizar{
+        background: #69b187;
+        color: white
     }
 
     .btn-accion:hover {
