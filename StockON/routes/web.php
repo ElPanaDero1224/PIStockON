@@ -19,7 +19,7 @@ Route::get('/menu',[controladorVistas::class, 'menu'])->name('menu');
 
 #ruta para el menu
 Route::get('/inventarios',[inventarios::class, 'index'])->name('tabla');
-
+Route::post('/store_inventario', [inventarios::class, 'store_inventario'])->name('store_inventario');
 #ruta para el formulario para agregar un inventario
 Route::get('/agregarInventarios',[inventarios::class, 'add_inventario_vw'])->name('addInventario');
 Route::get('/agregarProductos',[inventarios::class, 'add_productos_vw'])->name('addProductos');

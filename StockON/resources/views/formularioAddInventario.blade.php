@@ -10,7 +10,7 @@
         <h4>Agregar Inventario</h4>
     </div>
 
-    <form method="POST" action="#" class="p-4">
+    <form method="POST" action="{{ route('store_inventario') }}" class="p-4">
         @csrf
 
         <div class="form-group mb-3">
@@ -22,8 +22,9 @@
         <div class="form-group mb-3">
             <label for="id_tipoInventario">Tipo de Inventario:</label>
             <select class="form-control" name="id_tipoInventario">
-                <option value="1">Venta</option>
-                <option value="2">Compra</option>
+                @foreach($tipo_inventario as $tipo)
+                    <option value="{{ $tipo->id }}">{{ $tipo->nombre }}</option>
+                @endforeach
             </select>
             <small class="text-danger">{{ $errors->first('id_tipoInventario') }}</small>
         </div>
@@ -39,16 +40,15 @@
     </form>
 </div>
 
-{{-- 
 <script>
     @if (session('inventario'))
-            Swal.fire({
-                icon: 'success',
-                title: '¡Éxito!',
-                text: '{{ session('inventario') }}',
-                confirmButtonText: 'Cerrar',
-            });
+        Swal.fire({
+            icon: 'success',
+            title: '¡Éxito!',
+            text: '{{ session('inventario') }}',
+            confirmButtonText: 'Cerrar',
+        });
     @endif
-</script> --}}
+</script>
 
 @endsection
