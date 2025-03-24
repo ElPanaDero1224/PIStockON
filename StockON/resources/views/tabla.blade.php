@@ -201,11 +201,7 @@
                                 <tr>
                                     <td>{{ $producto->nombre }}</td>
                                     <td>{{ $producto->codigoLote }}</td>
-                                    <td>
-                                        ${{ number_format($producto->precioUnitario, 2) }}
-                                        
-
-                                    </td>
+                                    <td>${{ number_format($producto->precioUnitario, 2, '.', ',') }}</td>
                                     <td>{{ $producto->cantidad }}</td>
                                     <td>
                                         <button class="btn-accion ver-mas">Ver más</button>
@@ -258,6 +254,70 @@
     });
 </script>
 <script>
+    // Función para limpiar y convertir valores monetarios a número
+function parsePrecio(valorMonetario) {
+    // Eliminar el símbolo $ y cualquier otro carácter no numérico excepto el punto decimal
+    const valorLimpio = valorMonetario.replace(/[^\d.-]/g, '');
+    
+    // Manejar el caso de múltiples puntos (separadores de miles)
+    const partes = valorLimpio.split('.');
+    if (partes.length > 2) {
+        // Si hay más de un punto, todos excepto el último son separadores de miles
+        const parteEntera = partes.slice(0, -1).join('');
+        const parteDecimal = partes[partes.length - 1];
+        return parseFloat(`${parteEntera}.${parteDecimal}`);
+    }
+    
+    return parseFloat(valorLimpio);
+}
+
+// Modificar la función filtrarTabla para usar parsePrecio
+function filtrarTabla() {
+    const filas = document.querySelectorAll(".tabla-materiales tbody tr");
+    let algunaFilaVisible = false;
+    
+    filas.forEach(fila => {
+        const nombre = fila.cells[0].textContent.toLowerCase();
+        const lote = fila.cells[1].textContent.toLowerCase();
+        const precio = parsePrecio(fila.cells[2].textContent);
+        const cantidad = parseInt(fila.cells[3].textContent.replace(/[^\d]/g, '')) || 0;
+        
+        // Aplicar todos los filtros
+        const coincideNombre = !filtrosActivos.nombre || nombre.includes(filtrosActivos.nombre);
+        const coincideLote = !filtrosActivos.lote || lote.includes(filtrosActivos.lote);
+        const coincidePrecioMin = filtrosActivos.precioMin === null || precio >= filtrosActivos.precioMin;
+        const coincidePrecioMax = filtrosActivos.precioMax === null || precio <= filtrosActivos.precioMax;
+        const coincideCantidadMin = filtrosActivos.cantidadMin === null || cantidad >= filtrosActivos.cantidadMin;
+        const coincideCantidadMax = filtrosActivos.cantidadMax === null || cantidad <= filtrosActivos.cantidadMax;
+        
+        if (coincideNombre && coincideLote && coincidePrecioMin && coincidePrecioMax && 
+            coincideCantidadMin && coincideCantidadMax) {
+            fila.style.display = '';
+            algunaFilaVisible = true;
+        } else {
+            fila.style.display = 'none';
+        }
+    });
+    
+    mostrarMensajeSinResultados(!algunaFilaVisible);
+}
+
+// Modificar las funciones de ordenamiento para usar parsePrecio
+function ordenarPrecioAsc() {
+    ordenarTabla((a, b) => {
+        const precioA = parsePrecio(a.cells[2].textContent);
+        const precioB = parsePrecio(b.cells[2].textContent);
+        return precioA - precioB;
+    });
+}
+
+function ordenarPrecioDesc() {
+    ordenarTabla((a, b) => {
+        const precioA = parsePrecio(a.cells[2].textContent);
+        const precioB = parsePrecio(b.cells[2].textContent);
+        return precioB - precioA;
+    });
+}
     // Objeto para almacenar todos los filtros activos
     const filtrosActivos = {
         nombre: '',
