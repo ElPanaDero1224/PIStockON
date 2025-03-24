@@ -22,7 +22,7 @@ Route::get('/inventarios/{id_inventario?}',[inventarios::class, 'index'])->name(
 Route::post('/store_inventario', [inventarios::class, 'store_inventario'])->name('store_inventario');
 #ruta para el formulario para agregar un inventario
 Route::get('/agregarInventarios',[inventarios::class, 'add_inventario_vw'])->name('addInventario');
-Route::get('/agregarProductos/{id_inventario}',[inventarios::class, 'add_productos_vw'])->name('addProductos');
+Route::get('/agregarProductos/{id_inventario?}',[inventarios::class, 'add_productos_vw'])->name('addProductos');
 Route::post('/store_productos', [inventarios::class, 'store_productos'])->name('store_productos');
 
 

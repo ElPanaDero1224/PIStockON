@@ -1,8 +1,10 @@
 @extends('plantillas.cabeza2')
 
+@section('css')
+    @vite('resources/css/tabla.css')
+@endsection
 
 @section('contenido')
-
 
 <div class="sidebar-container">
     <div class="sidebar" id="sidebar">
@@ -57,414 +59,173 @@
                     @endif
                 </ul>
             </div>
-
         </div>
     </div>
 </div>
-
-
 
 <div class="main-content">
     <div class="container-fluid px-4">
-        <!-- Fila para los botones superiores -->
-        <div class="row mb-4">
-            <div class="col-12">
-                <div class="d-flex justify-content-between">
-                    <!-- Botón modificado para agregar producto -->
-                    <a href="{{ route('addProductos', ['id_inventario' => request()->id_inventario]) }}">
-                        <button class="btn btn-success btn-lg fw-bold">
-                            <i class="fas fa-plus me-2"></i> Agregar Producto
-                        </button>
-                    </a>
+        @if(is_null($id_inventario))
+            <!-- Mensaje cuando no hay inventario seleccionado -->
+            <div class="alert alert-info text-center py-5 my-5">
+                <h2><i class="fas fa-inbox me-2"></i> Selecciona un inventario</h2>
+                <p class="lead mt-3">Por favor, elige un inventario del menú lateral para ver y gestionar sus productos.</p>
+            </div>
+        @else
+            <!-- Contenido normal cuando hay inventario seleccionado -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <div class="d-flex justify-content-between">
+                        <a href="{{ route('addProductos', ['id_inventario' => $id_inventario]) }}">
+                            <button class="btn btn-success btn-lg fw-bold">
+                                <i class="fas fa-plus me-2"></i> Agregar Producto
+                            </button>
+                        </a>
 
-                    
-                    <a href="{{ route('verGraficaBarras') }}">
-                    <button class="btn btn-primary btn-lg fw-bold">
-                        <i class="fas fa-chart-line me-2"></i>Graficar
-                    </button>
-                     </a>
-
+                        <a href="{{ route('verGraficaBarras') }}">
+                            <button class="btn btn-primary btn-lg fw-bold">
+                                <i class="fas fa-chart-line me-2"></i>Graficar
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <div class="filtros-bar bg-light p-3 rounded-3 shadow-sm mb-4">
-            <div class="row g-3">
-                <!-- Grupo 1: Búsqueda Material -->
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <input type="text" 
-                               class="form-control form-control-lg" 
-                               placeholder="Buscar Material">
-                        <button class="btn btn-outline-secondary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="btn-group mt-2 w-100">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-sort-alpha-down"></i> A-Z
-                        </button>
-                        <button class="btn btn-primary">
-                            <i class="fas fa-sort-alpha-down-alt"></i> Z-A
-                        </button>
-                    </div>
-                </div>
 
-                <!-- Grupo 2: Código de Lote -->
-                <div class="col-md-4">
-                    <div class="input-group">
-                        <input type="text" 
-                               class="form-control form-control-lg" 
-                               placeholder="Buscar Código de lote">
-                        <button class="btn btn-outline-secondary" type="button">
-                            <i class="fas fa-search"></i>
-                        </button>
-                    </div>
-                    
-                    <div class="btn-group mt-2 w-100">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-sort-numeric-down-alt"></i> Mayor a menor
-                        </button>
-                    </div>
-                </div>
 
-                <!-- Botón Limpiar -->
-                <div class="col-md-4 d-flex align-items-end">
-                    <button class="btn btn-danger w-100 py-2">
-                        <i class="fas fa-eraser me-2"></i>Limpiar Filtros
-                    </button>
-                </div>
+
+            {{-- Inicio de los filtros --}}
+
+{{-- Inicio de los filtros --}}
+<div class="filtros-bar bg-light p-3 rounded-3 shadow-sm mb-4">
+    <div class="row g-3">
+        <!-- Grupo 1: Búsqueda Material -->
+        <div class="col-md-3">
+            <div class="input-group">
+                <input type="text" 
+                       id="filtro-nombre"
+                       class="form-control form-control-lg" 
+                       placeholder="Buscar Material">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+            
+            <div class="btn-group mt-2 w-100">
+                <button class="btn btn-primary" onclick="ordenarAZ()">
+                    <i class="fas fa-sort-alpha-down"></i> A-Z
+                </button>
+                <button class="btn btn-primary" onclick="ordenarZA()">
+                    <i class="fas fa-sort-alpha-down-alt"></i> Z-A
+                </button>
             </div>
         </div>
-
-        <!-- Contenedor de la tabla con scrollbar -->
-        <div class="filtros-container" style="margin-top: 20px; overflow-y: auto; max-height: 500px;">
-            <table class="tabla-materiales">
-                <thead>
-                    <tr>
-                        <th>Nombre</th>
-                        <th>Código lote</th>
-                        <th>Precio unitario</th>
-                        <th>Cantidad</th>
-                        <th>Acciones</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if(is_null($id_inventario))
-                        <tr>
-                            <td colspan="5" class="text-center">Selecciona un inventario para ver sus productos.</td>
-                        </tr>
-                    @elseif($productos->isEmpty())
-                        <tr>
-                            <td colspan="5" class="text-center">No hay productos en este inventario.</td>
-                        </tr>
-                    @else
-                        @foreach($productos as $producto)
-                            <tr>
-                                <td>{{ $producto->nombre }}</td>
-                                <td>{{ $producto->codigoLote }}</td>
-                                <td>${{ number_format($producto->precioUnitario, 2) }}</td>
-                                <td>{{ $producto->cantidad }}</td>
-                                <td>
-                                    <button class="btn-accion ver-mas">Ver más</button>
-                                    <button class="btn-accion eliminar">Eliminar campo</button>
-                                    <button class="btn-accion actualizar">Actualizar</button>
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endif
-                </tbody>
-            </table>
+        
+        <!-- Grupo 2: Código de Lote -->
+        <div class="col-md-3">
+            <div class="input-group">
+                <input type="text" 
+                       id="filtro-lote"
+                       class="form-control form-control-lg" 
+                       placeholder="Buscar Código de lote">
+                <button class="btn btn-outline-secondary" type="button">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Grupo 3: Filtros por Precio -->
+        <div class="col-md-3">
+            <div class="input-group mb-2">
+                <span class="input-group-text">$</span>
+                <input type="number" id="precio-min" class="form-control" placeholder="Mínimo">
+                <span class="input-group-text">-</span>
+                <input type="number" id="precio-max" class="form-control" placeholder="Máximo">
+            </div>
+            
+            <div class="btn-group w-100">
+                <button class="btn btn-primary" onclick="ordenarPrecioAsc()">
+                    <i class="fas fa-sort-numeric-down-alt"></i> Precio ↑
+                </button>
+                <button class="btn btn-primary" onclick="ordenarPrecioDesc()">
+                    <i class="fas fa-sort-numeric-down"></i> Precio ↓
+                </button>
+            </div>
+        </div>
+        
+        <!-- Grupo 4: Filtros por Cantidad -->
+        <div class="col-md-3">
+            <div class="input-group mb-2">
+                <span class="input-group-text">Cant.</span>
+                <input type="number" id="cantidad-min" class="form-control" placeholder="Mínimo">
+                <span class="input-group-text">-</span>
+                <input type="number" id="cantidad-max" class="form-control" placeholder="Máximo">
+            </div>
+            
+            <div class="d-flex align-items-end h-100">
+                <button class="btn btn-danger w-100 py-2" onclick="limpiarFiltros()">
+                    <i class="fas fa-eraser me-2"></i>Limpiar Filtros
+                </button>
+            </div>
         </div>
     </div>
 </div>
-
-<style>
-
-:root {
-            --header-height: 101px;
-            --sidebar-width: 250px;
-            --sidebar-collapsed-width: 50px;
-            --section-header-bg: #6c757d;
-            --item-bg: #5a6268;
-            --active-border: #ffd700;
-            --button-green: #28a745;
-            --button-blue: #007bff;
-        }
-
-        .sidebar-container {
-            position: fixed;
-            left: 0;
-            top: var(--header-height);
-            bottom: 0;
-            z-index: 999;
-            transition: all 0.3s;
-        }
-
-        .sidebar {
-            width: var(--sidebar-width);
-            height: calc(100vh - var(--header-height));
-            background-color: #bec2c5;
-            border-right: 1px solid #dee2e6;
-            overflow-x: hidden;
-            overflow-y: auto;
-            transition: all 0.3s;
-            position: relative;
-            padding: 10px;
-        }
-
-        .sidebar.collapsed {
-            width: var(--sidebar-collapsed-width);
-        }
+{{-- fin de los filtros --}}
 
 
-        .sidebar-content {
-            padding: 10px;
-            opacity: 1;
-            transition: opacity 0.2s;
-        }
+            {{-- fin de los filtros --}}
 
-        .sidebar-section {
-            margin-bottom: 15px;
-        }
 
-        .section-header {
-            background-color: var(--section-header-bg);
-            color: white;
-            padding: 10px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
 
-        .section-items {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-out;
-        }
 
-        .section-items.show {
-            max-height: 500px;
-        }
 
-        .sidebar-item {
-            background-color: var(--item-bg);
-            color: white;
-            padding: 8px 15px;
-            margin: 2px 0;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .sidebar-item.active {
-            border-left: 4px solid var(--active-border);
-        }
-
-        .toggle-sidebar {
-            background: #61777a !important; /* Color azul similar a los botones */
-            border-color: #000000 !important;
-            color: white;
-            position: absolute;
-            right: -15px;
-            top: 10px;
-            background: white;
-            border: 1px solid #dee2e6;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 1000;
-        }
-
-        .main-content {
-            position: relative;
-            padding-top: 50px;
-            margin-left: var(--sidebar-width);
-            transition: margin-left 0.3s;
-        }
-
-        .sidebar.collapsed + .main-content {
-            margin-left: var(--sidebar-collapsed-width);
-        }
-
-        /* Estilos de los botones */
-        .btn-inventario {
-            width: 100%;
-            padding: 10px;
-            font-size: 14px;
-            text-align: center;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .btn-gestionar {
-            background-color: #17a2b8; /* Color de la imagen */
-        }
-
-        .btn-gestionar:hover {
-            background-color: #138496;
-        }
-
-        .btn-agregar {
-            background-color: #07ff3d; /* Color de la imagen */
-            color: black;
-        }
-
-        .btn-agregar:hover {
-            background-color: #e0a800;
-        }
-    .filtros-bar {
-        background: #f8f9fa;
-        border: 1px solid #dee2e6;
-    }
-    
-    .btn-group .btn {
-        flex: 1 1 auto;
-        padding: 8px 12px;
-    }
-    
-    .form-control-lg {
-        font-size: 1rem;
-        padding: 12px 15px;
-    }
-    
-    .btn-outline-secondary {
-        border-color: #dee2e6;
-    }
-    
-    .btn-primary {
-        background-color: #17a2b8;
-        border-color: #17a2b8;
-    }
-    
-    .btn-primary:hover {
-        background-color: #138496;
-        border-color: #117a8b;
-    }
-    
-    .btn-danger {
-        background-color: #dc3545;
-        border-color: #dc3545;
-        height: 42px;
-    }
-
-    .tabla-materiales {
-        width: 100%;
-        border-collapse: collapse;
-        background: white;
-        margin-top: 40px;
-        box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-        font-size: 18px;
-        border-radius: 8px;
-        overflow: auto;
-    }
-
-    .tabla-materiales th {
-        background: #2c3e50;
-        color: white;
-        padding: 25px;
-        text-align: left;
-        border-bottom: 3px solid #3498db;
-        font-weight: 600;
-    }
-
-    .tabla-materiales td {
-        padding: 1px;
-        border-bottom: 2px solid #ecf0f1;
-        vertical-align: middle;
-        color: #34495e;
-    }
-
-    .btn-accion {
-        padding: 10px 20px;
-        margin: 0 8px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        transition: 0.3s;
-        font-size: 16px;
-        font-weight: 500;
-    }
-
-    .ver-mas {
-        background: #3498db;
-        color: white;
-    }
-
-    .eliminar {
-        background: #e74c3c;
-        color: white;
-    }
-
-    .actualizar{
-        background: #69b187;
-        color: white
-    }
-
-    .btn-accion:hover {
-        opacity: 0.9;
-        transform: translateY(-2px);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-    }
-
-    .cantidad-cero {
-        color: #e74c3c !important;
-        font-weight: 700;
-        font-size: 19px;
-    }
-
-    tr:last-child td {
-        border-bottom: none;
-    }
-
-    tr:hover td {
-        background-color: #f8f9fa;
-    }
-
-    
-
-    /* Estilos personalizados para el scrollbar */
-    .filtros-container::-webkit-scrollbar {
-        width: 12px;
-    }
-
-    .filtros-container::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 10px;
-    }
-
-    .filtros-container::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 10px;
-        border: 3px solid #f1f1f1;
-    }
-
-    .filtros-container::-webkit-scrollbar-thumb:hover {
-        background: #555;
-    }
-</style>
+            <!-- Contenedor de la tabla con scrollbar -->
+            <div class="filtros-container" style="margin-top: 20px; overflow-y: auto; max-height: 500px;">
+                <table class="tabla-materiales">
+                    <thead>
+                        <tr>
+                            <th>Nombre</th>
+                            <th>Código lote</th>
+                            <th>Precio unitario</th>
+                            <th>Cantidad</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if($productos->isEmpty())
+                            <tr>
+                                <td colspan="5" class="text-center">No hay productos en este inventario.</td>
+                            </tr>
+                        @else
+                            @foreach($productos as $producto)
+                                <tr>
+                                    <td>{{ $producto->nombre }}</td>
+                                    <td>{{ $producto->codigoLote }}</td>
+                                    <td>${{ number_format($producto->precioUnitario, 2) }}</td>
+                                    <td>{{ $producto->cantidad }}</td>
+                                    <td>
+                                        <button class="btn-accion ver-mas">Ver más</button>
+                                        <button class="btn-accion eliminar">Eliminar campo</button>
+                                        <button class="btn-accion actualizar">Actualizar</button>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                    </tbody>
+                </table>
+            </div>
+        @endif
+    </div>
+</div>
 
 <script>
-
-document.addEventListener("DOMContentLoaded", function() {
-    let filas = document.querySelectorAll(".tabla-materiales tbody tr");
-    if (filas.length > 0) {
-        let alturaFila = filas[0].offsetHeight; // Altura de una fila
-        document.querySelector(".filtros-container").style.maxHeight = `${alturaFila * 7}px`;
-    }
-});
+    document.addEventListener("DOMContentLoaded", function() {
+        let filas = document.querySelectorAll(".tabla-materiales tbody tr");
+        if (filas.length > 0) {
+            let alturaFila = filas[0].offsetHeight;
+            document.querySelector(".filtros-container").style.maxHeight = `${alturaFila * 7}px`;
+        }
+    });
 
     function toggleSidebar() {
         const sidebar = document.getElementById('sidebar');
@@ -489,4 +250,186 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 </script>
+<script>
+    // Objeto para almacenar todos los filtros activos
+    const filtrosActivos = {
+        nombre: '',
+        lote: '',
+        precioMin: null,
+        precioMax: null,
+        cantidadMin: null,
+        cantidadMax: null
+    };
+    
+    // Inicialización cuando el DOM está listo
+    document.addEventListener("DOMContentLoaded", function() {
+        // Configurar event listeners para todos los filtros
+        document.getElementById('filtro-nombre').addEventListener('input', function() {
+            filtrosActivos.nombre = this.value.toLowerCase();
+            filtrarTabla();
+        });
+        
+        document.getElementById('filtro-lote').addEventListener('input', function() {
+            filtrosActivos.lote = this.value.toLowerCase();
+            filtrarTabla();
+        });
+        
+        document.getElementById('precio-min').addEventListener('input', function() {
+            filtrosActivos.precioMin = this.value ? parseFloat(this.value) : null;
+            filtrarTabla();
+        });
+        
+        document.getElementById('precio-max').addEventListener('input', function() {
+            filtrosActivos.precioMax = this.value ? parseFloat(this.value) : null;
+            filtrarTabla();
+        });
+        
+        document.getElementById('cantidad-min').addEventListener('input', function() {
+            filtrosActivos.cantidadMin = this.value ? parseInt(this.value) : null;
+            filtrarTabla();
+        });
+        
+        document.getElementById('cantidad-max').addEventListener('input', function() {
+            filtrosActivos.cantidadMax = this.value ? parseInt(this.value) : null;
+            filtrarTabla();
+        });
+        
+        // Aplicar debounce a los filtros de texto para mejor rendimiento
+        aplicarDebounce();
+    });
+    
+    // Función para aplicar debounce a los filtros de texto
+    function aplicarDebounce() {
+        const debounce = (func, wait) => {
+            let timeout;
+            return function() {
+                const context = this, args = arguments;
+                clearTimeout(timeout);
+                timeout = setTimeout(() => func.apply(context, args), wait);
+            };
+        };
+        
+        document.getElementById('filtro-nombre').addEventListener('input', 
+            debounce(function() {
+                filtrosActivos.nombre = this.value.toLowerCase();
+                filtrarTabla();
+            }, 300)
+        );
+        
+        document.getElementById('filtro-lote').addEventListener('input', 
+            debounce(function() {
+                filtrosActivos.lote = this.value.toLowerCase();
+                filtrarTabla();
+            }, 300)
+        );
+    }
+    
+    // Función principal de filtrado
+    function filtrarTabla() {
+        const filas = document.querySelectorAll(".tabla-materiales tbody tr");
+        let algunaFilaVisible = false;
+        
+        filas.forEach(fila => {
+            const nombre = fila.cells[0].textContent.toLowerCase();
+            const lote = fila.cells[1].textContent.toLowerCase();
+            const precio = parseFloat(fila.cells[2].textContent.replace('$', ''));
+            const cantidad = parseInt(fila.cells[3].textContent);
+            
+            // Aplicar todos los filtros
+            const coincideNombre = !filtrosActivos.nombre || nombre.includes(filtrosActivos.nombre);
+            const coincideLote = !filtrosActivos.lote || lote.includes(filtrosActivos.lote);
+            const coincidePrecioMin = filtrosActivos.precioMin === null || precio >= filtrosActivos.precioMin;
+            const coincidePrecioMax = filtrosActivos.precioMax === null || precio <= filtrosActivos.precioMax;
+            const coincideCantidadMin = filtrosActivos.cantidadMin === null || cantidad >= filtrosActivos.cantidadMin;
+            const coincideCantidadMax = filtrosActivos.cantidadMax === null || cantidad <= filtrosActivos.cantidadMax;
+            
+            if (coincideNombre && coincideLote && coincidePrecioMin && coincidePrecioMax && 
+                coincideCantidadMin && coincideCantidadMax) {
+                fila.style.display = '';
+                algunaFilaVisible = true;
+            } else {
+                fila.style.display = 'none';
+            }
+        });
+        
+        // Mostrar mensaje si no hay resultados
+        mostrarMensajeSinResultados(!algunaFilaVisible);
+    }
+    
+    // Funciones de ordenamiento mejoradas
+    function ordenarAZ() {
+        ordenarTabla((a, b) => a.cells[0].textContent.localeCompare(b.cells[0].textContent));
+    }
+    
+    function ordenarZA() {
+        ordenarTabla((a, b) => b.cells[0].textContent.localeCompare(a.cells[0].textContent));
+    }
+    
+    function ordenarPrecioAsc() {
+        ordenarTabla((a, b) => {
+            const precioA = parseFloat(a.cells[2].textContent.replace('$', ''));
+            const precioB = parseFloat(b.cells[2].textContent.replace('$', ''));
+            return precioA - precioB;
+        });
+    }
+    
+    function ordenarPrecioDesc() {
+        ordenarTabla((a, b) => {
+            const precioA = parseFloat(a.cells[2].textContent.replace('$', ''));
+            const precioB = parseFloat(b.cells[2].textContent.replace('$', ''));
+            return precioB - precioA;
+        });
+    }
+    
+    // Función genérica para ordenar la tabla
+    function ordenarTabla(comparador) {
+        const tabla = document.querySelector(".tabla-materiales tbody");
+        const filas = Array.from(tabla.querySelectorAll("tr"))
+            .filter(fila => fila.style.display !== 'none');
+        
+        filas.sort(comparador);
+        
+        // Reinsertar filas ordenadas
+        filas.forEach(fila => tabla.appendChild(fila));
+    }
+    
+    // Función para limpiar todos los filtros
+    function limpiarFiltros() {
+        // Limpiar valores de los inputs
+        document.getElementById('filtro-nombre').value = '';
+        document.getElementById('filtro-lote').value = '';
+        document.getElementById('precio-min').value = '';
+        document.getElementById('precio-max').value = '';
+        document.getElementById('cantidad-min').value = '';
+        document.getElementById('cantidad-max').value = '';
+        
+        // Resetear filtros activos
+        for (let key in filtrosActivos) {
+            if (filtrosActivos.hasOwnProperty(key)) {
+                filtrosActivos[key] = key === 'nombre' || key === 'lote' ? '' : null;
+            }
+        }
+        
+        // Mostrar todas las filas y ocultar mensaje
+        const filas = document.querySelectorAll(".tabla-materiales tbody tr");
+        filas.forEach(fila => fila.style.display = '');
+        mostrarMensajeSinResultados(false);
+    }
+    
+    // Función para mostrar/ocultar mensaje cuando no hay resultados
+    function mostrarMensajeSinResultados(mostrar) {
+        let mensaje = document.getElementById('mensaje-sin-resultados');
+        
+        if (mostrar) {
+            if (!mensaje) {
+                mensaje = document.createElement('tr');
+                mensaje.id = 'mensaje-sin-resultados';
+                mensaje.innerHTML = '<td colspan="5" class="text-center text-muted py-4"><i class="fas fa-inbox fa-2x mb-2"></i><br>No se encontraron productos con los filtros aplicados</td>';
+                document.querySelector(".tabla-materiales tbody").appendChild(mensaje);
+            }
+        } else if (mensaje) {
+            mensaje.remove();
+        }
+    }
+    </script>
 @endsection
