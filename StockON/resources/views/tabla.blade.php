@@ -201,12 +201,19 @@
                                 <tr>
                                     <td>{{ $producto->nombre }}</td>
                                     <td>{{ $producto->codigoLote }}</td>
-                                    <td>${{ number_format($producto->precioUnitario, 2) }}</td>
+                                    <td>
+                                        ${{ number_format($producto->precioUnitario, 2) }}
+                                        
+
+                                    </td>
                                     <td>{{ $producto->cantidad }}</td>
                                     <td>
                                         <button class="btn-accion ver-mas">Ver más</button>
                                         <button class="btn-accion eliminar">Eliminar campo</button>
                                         <button class="btn-accion actualizar">Actualizar</button>
+                                        <button class="btn-accion ver-mas">Vender</button>
+                                        <button class="btn-accion ver-mas">Reabastecer</button>
+                                        <button class="btn-accion ver-mas">Añadir al carrito</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -223,7 +230,7 @@
         let filas = document.querySelectorAll(".tabla-materiales tbody tr");
         if (filas.length > 0) {
             let alturaFila = filas[0].offsetHeight;
-            document.querySelector(".filtros-container").style.maxHeight = `${alturaFila * 7}px`;
+            document.querySelector(".filtros-container").style.maxHeight = `${alturaFila * 4}px`;
         }
     });
 

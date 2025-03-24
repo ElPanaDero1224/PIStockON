@@ -101,6 +101,8 @@
     z-index: 1000;
 }
 
+/* fin de sidebar */
+
 .main-content {
     position: relative;
     padding-top: 50px;
@@ -177,83 +179,191 @@ border-color: #dc3545;
 height: 42px;
 }
 
+
+
+/* css de la tabla */
+/* Estilos para la tabla - Versión mejorada */
 .tabla-materiales {
-width: 100%;
-border-collapse: collapse;
-background: white;
-margin-top: 40px;
-box-shadow: 0 6px 12px rgba(0,0,0,0.2);
-font-size: 18px;
-border-radius: 8px;
-overflow: auto;
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    table-layout: fixed; /* Para un ancho consistente */
 }
 
-.tabla-materiales th {
-background: #2c3e50;
-color: white;
-padding: 25px;
-text-align: left;
-border-bottom: 3px solid #3498db;
-font-weight: 600;
+.tabla-materiales thead th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    padding: 1.2rem 1.5rem; /* Más padding */
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid #dee2e6;
+    white-space: nowrap; /* Evita que el texto se divida */
 }
 
-.tabla-materiales td {
-padding: 1px;
-border-bottom: 2px solid #ecf0f1;
-vertical-align: middle;
-color: #34495e;
+.tabla-materiales tbody td {
+    padding: 1.2rem 1.5rem; /* Más padding */
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+    word-break: break-word; /* Manejo de texto largo */
+    line-height: 1.5; /* Más espacio entre líneas */
+}
+
+/* Columnas específicas con anchos personalizados */
+.tabla-materiales th:nth-child(1),
+.tabla-materiales td:nth-child(1) {
+    width: 20%; /* Nombre */
+}
+
+.tabla-materiales th:nth-child(2),
+.tabla-materiales td:nth-child(2) {
+    width: 15%; /* Código lote */
+}
+
+.tabla-materiales th:nth-child(3),
+.tabla-materiales td:nth-child(3) {
+    width: 15%; /* Precio */
+}
+
+.tabla-materiales th:nth-child(4),
+.tabla-materiales td:nth-child(4) {
+    width: 10%; /* Cantidad */
+}
+
+.tabla-materiales th:nth-child(5),
+.tabla-materiales td:nth-child(5) {
+    width: 40%; /* Acciones - más ancho */
+}
+
+/* Contenedor de la tabla mejorado */
+.filtros-container {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    overflow-y: auto;
+    max-height: 600px; /* Más altura */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+}
+
+/* Botones de acción - versión más espaciada */
+.acciones-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem; /* Espacio uniforme entre botones */
+    align-items: center;
 }
 
 .btn-accion {
-padding: 10px 20px;
-margin: 0 8px;
-border: none;
-border-radius: 6px;
-cursor: pointer;
-transition: 0.3s;
-font-size: 16px;
-font-weight: 500;
+    padding: 0.5rem 0.8rem; /* Más grandes */
+    font-size: 0.85rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Texto en una línea */
+    min-width: 80px; /* Ancho mínimo consistente */
+    text-align: center;
+    margin: 0; /* Eliminamos márgenes individuales */
 }
 
-.ver-mas {
-background: #3498db;
-color: white;
+/* Colores de botones */
+.btn-accion.ver-mas {
+    background-color: #e7f1ff;
+    color: #0d6efd;
+    border-color: #b8d4ff;
 }
 
-.eliminar {
-background: #e74c3c;
-color: white;
+.btn-accion.eliminar {
+    background-color: #f8d7da;
+    color: #dc3545;
+    border-color: #f1aeb5;
 }
 
-.actualizar{
-background: #69b187;
-color: white
+.btn-accion.actualizar {
+    background-color: #fff3cd;
+    color: #d39e00;
+    border-color: #ffe69c;
 }
 
 .btn-accion:hover {
-opacity: 0.9;
-transform: translateY(-2px);
-box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-.cantidad-cero {
-color: #e74c3c !important;
-font-weight: 700;
-font-size: 19px;
+/* Efectos hover para filas */
+.tabla-materiales tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+    transition: background-color 0.3s ease;
 }
 
-tr:last-child td {
-border-bottom: none;
+/* Alineaciones específicas */
+.tabla-materiales td:nth-child(3) { /* Precio */
+    text-align: right;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 0.5px;
 }
 
-tr:hover td {
-background-color: #f8f9fa;
+.tabla-materiales td:nth-child(4) { /* Cantidad */
+    text-align: center;
+    font-weight: 500;
 }
 
+/* Mensaje cuando no hay datos */
+.tabla-materiales .sin-datos {
+    padding: 2.5rem;
+    text-align: center;
+    color: #6c757d;
+    font-size: 1.1rem;
+}
 
+/* Responsive para móviles */
+@media (max-width: 992px) {
+    .tabla-materiales {
+        font-size: 0.9rem;
+    }
+    
+    .tabla-materiales thead th,
+    .tabla-materiales tbody td {
+        padding: 1rem;
+    }
+    
+    /* Hacemos la tabla scroll horizontal en móviles */
+    .filtros-container {
+        overflow-x: auto;
+        max-height: none;
+    }
+    
+    .tabla-materiales {
+        width: max-content;
+        min-width: 100%;
+    }
+    
+    .btn-accion {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        min-width: 70px;
+    }
+}
 
+/* Efecto de transición suave al cargar */
+@keyframes fadeInRow {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
+.tabla-materiales tbody tr {
+    animation: fadeInRow 0.3s ease forwards;
+}
 
+.tabla-materiales tbody tr:nth-child(1) { animation-delay: 0.1s; }
+.tabla-materiales tbody tr:nth-child(2) { animation-delay: 0.2s; }
+.tabla-materiales tbody tr:nth-child(3) { animation-delay: 0.3s; }
+/* ... y así sucesivamente */
 
 
 
