@@ -11,7 +11,7 @@
 }
 
 .sidebar-container {
-    position: fixed;
+    position: absolute;
     left: 0;
     top: var(--header-height);
     bottom: 0;
@@ -270,29 +270,58 @@ height: 42px;
     margin: 0; /* Eliminamos márgenes individuales */
 }
 
-/* Colores de botones */
 .btn-accion.ver-mas {
-    background-color: #e7f1ff;
-    color: #0d6efd;
-    border-color: #b8d4ff;
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border-color: #bae6fd;
+    transition: all 0.3s ease;
 }
 
 .btn-accion.eliminar {
-    background-color: #f8d7da;
-    color: #dc3545;
-    border-color: #f1aeb5;
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border-color: #fecaca;
+    transition: all 0.3s ease;
 }
 
 .btn-accion.actualizar {
-    background-color: #fff3cd;
-    color: #d39e00;
-    border-color: #ffe69c;
+    background-color: #fef9c3;
+    color: #a16207;
+    border-color: #fef08a;
+    transition: all 0.3s ease;
 }
 
-.btn-accion:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+.btn-accion.vender {
+    background-color: #dcfce7;
+    color: #166534;
+    border-color: #bbf7d0;
+    transition: all 0.3s ease;
 }
+
+.btn-accion.reabastecer {
+    background-color: #ffedd5;
+    color: #9a3412;
+    border-color: #fed7aa;
+    transition: all 0.3s ease;
+}
+
+.btn-accion.aniadir {
+    background-color: #f0f9ff;
+    color: #7e22ce;
+    border-color: #e0e7ff;
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover para todos los botones */
+.btn-accion:hover {
+    filter: brightness(95%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* fin del color de los botones*/
+
+
 
 /* Efectos hover para filas */
 .tabla-materiales tbody tr:hover {

@@ -207,9 +207,9 @@
                                         <button class="btn-accion ver-mas">Ver más</button>
                                         <button class="btn-accion eliminar">Eliminar campo</button>
                                         <button class="btn-accion actualizar">Actualizar</button>
-                                        <button class="btn-accion ver-mas">Vender</button>
-                                        <button class="btn-accion ver-mas">Reabastecer</button>
-                                        <button class="btn-accion ver-mas">Añadir al carrito</button>
+                                        <button class="btn-accion vender">Vender</button>
+                                        <button class="btn-accion reabastecer">Reabastecer</button>
+                                        <button class="btn-accion aniadir">Añadir al carrito</button>
                                     </td>
                                 </tr>
                             @endforeach
@@ -226,7 +226,7 @@
         let filas = document.querySelectorAll(".tabla-materiales tbody tr");
         if (filas.length > 0) {
             let alturaFila = filas[0].offsetHeight;
-            document.querySelector(".filtros-container").style.maxHeight = `${alturaFila * 4}px`;
+            document.querySelector(".filtros-container").style.maxHeight = `${alturaFila * 3}px`;
         }
     });
 
