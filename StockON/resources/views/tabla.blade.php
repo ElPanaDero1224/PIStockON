@@ -4,6 +4,8 @@
     @vite('resources/css/tabla.css')
 @endsection
 
+
+
 @section('contenido')
 
 <div class="sidebar-container">
@@ -205,7 +207,10 @@
                                     <td>{{ $producto->cantidad }}</td>
                                     <td>
                                         <button class="btn-accion ver-mas">Ver más</button>
-                                        <button class="btn-accion eliminar">Eliminar campo</button>
+                                        <button class="btn-accion eliminar" 
+                                                onclick="confirmarEliminacion({{ $producto->id_inventario }}, {{ $producto->id }})">
+                                            Eliminar campo
+                                        </button>
                                         <a href="{{ route('updateProductos', ['id_inventario' => $producto->id_inventario, 'id' => $producto->id]) }}" class="btn-accion actualizar">
                                             Actualizar
                                         </a>
@@ -222,6 +227,8 @@
         @endif
     </div>
 </div>
+
+
 
 <script>
     document.addEventListener("DOMContentLoaded", function() {
@@ -503,4 +510,40 @@ function ordenarPrecioDesc() {
     
     }
     </script>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+function confirmarEliminacion(id_inventario, id) {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "¡No podrás revertir esta acción!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar',
+        allowOutsideClick: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Usar fetch API para mayor compatibilidad
+            fetch(`/eliminarProductos/${id_inventario}/${id}`, {
+                method: 'DELETE',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                }
+            }).then(response => {
+                if (response.redirected) {
+                    window.location.href = response.url;
+                }
+            });
+        }
+    });
+}
+</script>
+
 @endsection

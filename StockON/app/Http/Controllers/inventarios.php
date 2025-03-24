@@ -141,7 +141,7 @@ class inventarios extends Controller
 
 
 
-    #funcion para actualizar los productos
+    #funcion para la vista para actualizar los productos
 
     public function update_productos_view($id_inventario, $id)
     {
@@ -164,6 +164,12 @@ class inventarios extends Controller
             'id_inventario' => $id_inventario
         ]);
     }
+
+    #fin de la funcion
+
+
+
+    #funcion para actualizar los productos
 
     public function update_productos(Request $request, $id_inventario, $id)
 {
@@ -192,6 +198,35 @@ class inventarios extends Controller
     
     return redirect()->back()->with('error', 'No se pudo actualizar el producto');
 }
+
+
+    #fin de la funcion
+
+
+    #funcion para eliminar los productos
+
+    public function delete_productos($id_inventario, $id)
+    {
+        if (!session()->has('empresaID')) {
+            return redirect()->route('iniciar')->with('error', 'Debes iniciar sesión para acceder.');
+        }
+
+        // Eliminar el producto
+        $deleted = DB::table('productos')
+                ->where('id_inventario', $id_inventario)
+                ->where('id', $id)
+                ->delete();
+
+        if ($deleted) {
+            return redirect()->route('tabla', ['id_inventario' => $id_inventario])
+                        ->with('success', 'Producto eliminado correctamente');
+        }
+
+        return redirect()->route('tabla', ['id_inventario' => $id_inventario])
+                    ->with('error', 'No se pudo eliminar el producto');
+    }
+
+    #fin de la funcion
 
 
     public function verGraficaBarras()

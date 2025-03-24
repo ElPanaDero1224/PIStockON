@@ -28,6 +28,10 @@ Route::post('/store_productos', [inventarios::class, 'store_productos'])->name('
 // Mostrar formulario de edición
 Route::get('/update_productos/{id_inventario}/{id}', [inventarios::class, 'update_productos_view'])->name('updateProductos');
 
+#eliminacion
+Route::delete('/eliminarProductos/{id_inventario}/{id}', [inventarios::class, 'delete_productos'])->name('dropProducto');
+
+
 // Procesar actualización
 Route::put('/update_productos/{id_inventario}/{id}', [inventarios::class, 'update_productos'])->name('update_productos');
 
