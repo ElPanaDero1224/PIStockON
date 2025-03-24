@@ -430,6 +430,8 @@
         } else if (mensaje) {
             mensaje.remove();
         }
+
+    
     }
     </script>
 @endsection
