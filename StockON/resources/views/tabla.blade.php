@@ -206,7 +206,9 @@
                                     <td>
                                         <button class="btn-accion ver-mas">Ver más</button>
                                         <button class="btn-accion eliminar">Eliminar campo</button>
-                                        <button class="btn-accion actualizar">Actualizar</button>
+                                        <a href="{{ route('updateProductos', ['id_inventario' => $producto->id_inventario, 'id' => $producto->id]) }}" class="btn-accion actualizar">
+                                            Actualizar
+                                        </a>
                                         <button class="btn-accion vender">Vender</button>
                                         <button class="btn-accion reabastecer">Reabastecer</button>
                                         <button class="btn-accion aniadir">Añadir al carrito</button>
