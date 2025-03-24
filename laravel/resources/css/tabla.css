@@ -1,65 +1,548 @@
-.table {
-    width: 90%;
-    margin: auto;
-    border-collapse: collapse;
+
+:root {
+    --header-height: 101px;
+    --sidebar-width: 250px;
+    --sidebar-collapsed-width: 50px;
+    --section-header-bg: #6c757d;
+    --item-bg: #5a6268;
+    --active-border: #ffd700;
+    --button-green: #28a745;
+    --button-blue: #007bff;
 }
 
-th, td {
-    border: 1px solid black;
+.sidebar-container {
+    position: absolute;
+    left: 0;
+    top: var(--header-height);
+    bottom: 0;
+    z-index: 999;
+    transition: all 0.3s;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    height: calc(100vh - var(--header-height));
+    background-color: #bec2c5;
+    border-right: 1px solid #dee2e6;
+    overflow-x: hidden;
+    overflow-y: auto;
+    transition: all 0.3s;
+    position: relative;
     padding: 10px;
-    text-align: center;
 }
 
-th {
-    background-color: #b5d3d3;
-    font-weight: bold;
+.sidebar.collapsed {
+    width: var(--sidebar-collapsed-width);
 }
 
-.btn-add {
-    background-color: #73e673;
-    border: none;
-    padding: 5px 5px;
-    font-weight: bold;
-    color: black;
-    cursor: pointer;
-    border-radius: px;
+
+.sidebar-content {
+    padding: 10px;
+    opacity: 1;
+    transition: opacity 0.2s;
 }
 
-.btn-action {
-    background-color: #fff;
-    border: 1px solid #333;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 16px;
-    padding: 5px;
+.sidebar-section {
+    margin-bottom: 15px;
 }
 
-.btn-view {
-    background-color: #f9d68e;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.btn-delete {
-    background-color: #f44336;
-    border: none;
-    padding: 5px 10px;
+.section-header {
+    background-color: var(--section-header-bg);
     color: white;
+    padding: 10px;
     cursor: pointer;
-}
-
-.btn-edit {
-    background-color: #87c0f9;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-}
-
-.container {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 50vh;
-    gap: 10px;
 }
+
+.section-items {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.section-items.show {
+    max-height: 500px;
+}
+
+.sidebar-item {
+    background-color: var(--item-bg);
+    color: white;
+    padding: 8px 15px;
+    margin: 2px 0;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.sidebar-item.active {
+    border-left: 4px solid var(--active-border);
+}
+
+.toggle-sidebar {
+    background: #61777a !important; /* Color azul similar a los botones */
+    border-color: #000000 !important;
+    color: white;
+    position: absolute;
+    right: -15px;
+    top: 10px;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 1000;
+}
+
+/* fin de sidebar */
+
+.main-content {
+    position: relative;
+    padding-top: 50px;
+    margin-left: var(--sidebar-width);
+    transition: margin-left 0.3s;
+}
+
+.sidebar.collapsed + .main-content {
+    margin-left: var(--sidebar-collapsed-width);
+}
+
+/* Estilos de los botones */
+.btn-inventario {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    text-align: center;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.btn-gestionar {
+    background-color: #17a2b8; /* Color de la imagen */
+}
+
+.btn-gestionar:hover {
+    background-color: #138496;
+}
+
+.btn-agregar {
+    background-color: #07ff3d; /* Color de la imagen */
+    color: black;
+}
+
+.btn-agregar:hover {
+    background-color: #e0a800;
+}
+.filtros-bar {
+background: #f8f9fa;
+border: 1px solid #dee2e6;
+}
+
+.btn-group .btn {
+flex: 1 1 auto;
+padding: 8px 12px;
+}
+
+.form-control-lg {
+font-size: 1rem;
+padding: 12px 15px;
+}
+
+.btn-outline-secondary {
+border-color: #dee2e6;
+}
+
+.btn-primary {
+background-color: #17a2b8;
+border-color: #17a2b8;
+}
+
+.btn-primary:hover {
+background-color: #138496;
+border-color: #117a8b;
+}
+
+.btn-danger {
+background-color: #dc3545;
+border-color: #dc3545;
+height: 42px;
+}
+
+
+
+/* css de la tabla */
+/* Estilos para la tabla - Versión mejorada */
+.tabla-materiales {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    font-size: 0.95rem;
+    margin-top: 1rem;
+    table-layout: fixed; /* Para un ancho consistente */
+}
+
+.tabla-materiales thead th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    padding: 1.2rem 1.5rem; /* Más padding */
+    text-align: left;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    border-bottom: 2px solid #dee2e6;
+    white-space: nowrap; /* Evita que el texto se divida */
+}
+
+.tabla-materiales tbody td {
+    padding: 1.2rem 1.5rem; /* Más padding */
+    border-bottom: 1px solid #e9ecef;
+    vertical-align: middle;
+    word-break: break-word; /* Manejo de texto largo */
+    line-height: 1.5; /* Más espacio entre líneas */
+}
+
+/* Columnas específicas con anchos personalizados */
+.tabla-materiales th:nth-child(1),
+.tabla-materiales td:nth-child(1) {
+    width: 20%; /* Nombre */
+}
+
+.tabla-materiales th:nth-child(2),
+.tabla-materiales td:nth-child(2) {
+    width: 15%; /* Código lote */
+}
+
+.tabla-materiales th:nth-child(3),
+.tabla-materiales td:nth-child(3) {
+    width: 15%; /* Precio */
+}
+
+.tabla-materiales th:nth-child(4),
+.tabla-materiales td:nth-child(4) {
+    width: 10%; /* Cantidad */
+}
+
+.tabla-materiales th:nth-child(5),
+.tabla-materiales td:nth-child(5) {
+    width: 40%; /* Acciones - más ancho */
+}
+
+/* Contenedor de la tabla mejorado */
+.filtros-container {
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    margin-top: 1.5rem;
+    overflow-y: auto;
+    max-height: 600px; /* Más altura */
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    background-color: #fff;
+}
+
+/* Botones de acción - versión más espaciada */
+.acciones-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem; /* Espacio uniforme entre botones */
+    align-items: center;
+}
+
+.btn-accion {
+    padding: 0.5rem 0.8rem; /* Más grandes */
+    font-size: 0.85rem;
+    border-radius: 6px;
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+    white-space: nowrap; /* Texto en una línea */
+    min-width: 80px; /* Ancho mínimo consistente */
+    text-align: center;
+    margin: 0; /* Eliminamos márgenes individuales */
+}
+
+.btn-accion.ver-mas {
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border-color: #bae6fd;
+    transition: all 0.3s ease;
+}
+
+.btn-accion.eliminar {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border-color: #fecaca;
+    transition: all 0.3s ease;
+}
+
+.btn-accion.actualizar {
+    background-color: #fef9c3;
+    color: #a16207;
+    border-color: #fef08a;
+    transition: all 0.3s ease;
+}
+
+.btn-accion.vender {
+    background-color: #dcfce7;
+    color: #166534;
+    border-color: #bbf7d0;
+    transition: all 0.3s ease;
+}
+
+.btn-accion.reabastecer {
+    background-color: #ffedd5;
+    color: #9a3412;
+    border-color: #fed7aa;
+    transition: all 0.3s ease;
+}
+
+.btn-accion.aniadir {
+    background-color: #f0f9ff;
+    color: #7e22ce;
+    border-color: #e0e7ff;
+    transition: all 0.3s ease;
+}
+
+/* Efecto hover para todos los botones */
+.btn-accion:hover {
+    filter: brightness(95%);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* fin del color de los botones*/
+
+
+
+/* Efectos hover para filas */
+.tabla-materiales tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+    transition: background-color 0.3s ease;
+}
+
+/* Alineaciones específicas */
+.tabla-materiales td:nth-child(3) { /* Precio */
+    text-align: right;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.tabla-materiales td:nth-child(4) { /* Cantidad */
+    text-align: center;
+    font-weight: 500;
+}
+
+/* Mensaje cuando no hay datos */
+.tabla-materiales .sin-datos {
+    padding: 2.5rem;
+    text-align: center;
+    color: #6c757d;
+    font-size: 1.1rem;
+}
+
+/* Responsive para móviles */
+@media (max-width: 992px) {
+    .tabla-materiales {
+        font-size: 0.9rem;
+    }
+    
+    .tabla-materiales thead th,
+    .tabla-materiales tbody td {
+        padding: 1rem;
+    }
+    
+    /* Hacemos la tabla scroll horizontal en móviles */
+    .filtros-container {
+        overflow-x: auto;
+        max-height: none;
+    }
+    
+    .tabla-materiales {
+        width: max-content;
+        min-width: 100%;
+    }
+    
+    .btn-accion {
+        padding: 0.4rem 0.6rem;
+        font-size: 0.8rem;
+        min-width: 70px;
+    }
+}
+
+/* Efecto de transición suave al cargar */
+@keyframes fadeInRow {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.tabla-materiales tbody tr {
+    animation: fadeInRow 0.3s ease forwards;
+}
+
+.tabla-materiales tbody tr:nth-child(1) { animation-delay: 0.1s; }
+.tabla-materiales tbody tr:nth-child(2) { animation-delay: 0.2s; }
+.tabla-materiales tbody tr:nth-child(3) { animation-delay: 0.3s; }
+/* ... y así sucesivamente */
+
+
+
+
+/* Estilos personalizados para el scrollbar */
+.filtros-container::-webkit-scrollbar {
+width: 12px;
+}
+
+.filtros-container::-webkit-scrollbar-track {
+background: #f1f1f1;
+border-radius: 10px;
+}
+
+.filtros-container::-webkit-scrollbar-thumb {
+background: #888;
+border-radius: 10px;
+border: 3px solid #f1f1f1;
+}
+
+.filtros-container::-webkit-scrollbar-thumb:hover {
+background: #555;
+}
+
+
+/* Contenedor principal de filtros */
+.filtros-bar {
+    background-color: #ffffff;
+    border: 1px solid #e0e3e7;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.filtros-bar:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+/* Grupos de filtros */
+.filtros-bar .col-md-4 {
+    padding: 0 0.75rem;
+}
+
+/* Input groups */
+.filtros-bar .input-group {
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+}
+
+.filtros-bar .form-control {
+    border: 1px solid #e0e3e7;
+    padding: 0.6rem 1rem;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+}
+
+.filtros-bar .form-control:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, 0.15);
+    z-index: 3;
+}
+
+.filtros-bar .input-group-text {
+    background-color: #f8f9fa;
+    border: 1px solid #e0e3e7;
+    color: #6c757d;
+    font-size: 0.9rem;
+    padding: 0 0.75rem;
+}
+
+/* Botones de filtros */
+.filtros-bar .btn-group {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.filtros-bar .btn-group .btn {
+    font-size: 0.85rem;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e0e3e7;
+    background-color: #f8f9fa;
+    color: #495057;
+    transition: all 0.2s ease;
+}
+
+.filtros-bar .btn-group .btn:hover {
+    background-color: #e9ecef;
+    color: #212529;
+}
+
+.filtros-bar .btn-group .btn:first-child {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.filtros-bar .btn-group .btn:last-child {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+/* Botón limpiar filtros */
+.filtros-bar .btn-danger {
+    background-color: #dc3545;
+    border: none;
+    border-radius: 8px;
+    padding: 0.6rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.filtros-bar .btn-danger:hover {
+    background-color: #c82333;
+    transform: translateY(-1px);
+}
+
+.filtros-bar .btn-danger:active {
+    transform: translateY(0);
+}
+
+/* Inputs de rango */
+.filtros-bar input[type="number"] {
+    text-align: center;
+    padding: 0.5rem;
+}
+
+/* Filtros activos */
+.filtro-activo {
+    position: relative;
+    box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
+    border-color: #86b7fe !important;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .filtros-bar .col-md-4 {
+        margin-bottom: 1rem;
+    }
+    
+    .filtros-bar .btn-group {
+        margin-top: 0.5rem;
+    }
+    
+    .filtros-bar .btn-danger {
+        margin-top: 0.5rem;
+    }
+}
+
