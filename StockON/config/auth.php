@@ -112,4 +112,17 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    
+    'guards' => [
+        'empresa' => [ // Guard personalizado
+            'driver' => 'session',
+            'provider' => 'empresas',
+        ],
+    ],
+    'providers' => [
+        'empresas' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\Empresa::class, // Asegúrate de crear este modelo
+        ],
+    ],
 ];

@@ -34,7 +34,7 @@ class controladorVistas extends Controller
     public function iniciar(Request $peticiones){
 
         $validacion = $peticiones->validate([
-            'email'=>'required|email:rfc,dns',
+            /* 'email'=>'required|email:rfc,dns', */
             'contrasenia'=>'required|string|min:5|max:30',
         ]);
 
@@ -64,7 +64,7 @@ class controladorVistas extends Controller
             'nombre' => 'required|alpha:ascii|max:255',
             'numeroRegistro' => 'required|string|max:14',
             'tipo' => 'required|string|max:255',
-            'correo' => 'required|email:rfc,dns|max:255',
+            /* 'correo' => 'required|email:rfc,dns|max:255', */
             'contrasenia' => [
                 'required',
                 'string',

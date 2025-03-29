@@ -84,11 +84,18 @@
                             </button>
                         </a>
 
-                        <a href="{{ route('verGraficaBarras') }}">
-                            <button class="btn btn-primary btn-lg fw-bold">
-                                <i class="fas fa-chart-line me-2"></i>Graficar
-                            </button>
-                        </a>
+                        <div> 
+                            <a href="{{ route('carritos') }}" class="me-2"> 
+                                <button class="btn btn-warning btn-lg fw-bold">
+                                    <i class="fas fa-shopping-cart me-2"></i> Ver Carrito
+                                </button>
+                            </a>
+                            <a href="{{ route('verGraficaBarras') }}">
+                                <button class="btn btn-primary btn-lg fw-bold">
+                                    <i class="fas fa-chart-line me-2"></i> Graficar
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -214,9 +221,21 @@
                                         <a href="{{ route('updateProductos', ['id_inventario' => $producto->id_inventario, 'id' => $producto->id]) }}" class="btn-accion actualizar">
                                             Actualizar
                                         </a>
-                                        <button class="btn-accion vender">Vender</button>
+                                        <form action="{{ route('vender', $producto->id) }}" method="POST">
+                                            @csrf
+                                            <label for="cantidad">Cantidad a vender:</label>
+                                            <input type="number" name="cantidad" min="1" max="{{ $producto->cantidad }}" required>
+                                            <button type="submit" class="btn btn-success">Vender</button>
+                                        </form>
+
+
                                         <button class="btn-accion reabastecer">Reabastecer</button>
-                                        <button class="btn-accion aniadir">Añadir al carrito</button>
+                                        <form action="{{ route('carrito', $producto->id) }}" method="POST">
+                                            @csrf
+                                            <label for="cantidad">Cantidad a añadir:</label>
+                                            <input type="number" name="cantidad" min="1" max="{{ $producto->cantidad }}" required>
+                                            <button type="submit" class="btn btn-success">Añadir al carrito</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -228,6 +247,29 @@
     </div>
 </div>
 
+@if(session('success'))
+                                            <script>
+                                                Swal.fire({
+                                                    icon: 'success',
+                                                    title: 'Éxito',
+                                                    text: "{{ session('success') }}",
+                                                    timer: 2000, // 2 segundos para que la alerta se cierre automáticamente
+                                                    showConfirmButton: false
+                                                });
+                                            </script>
+                                        @endif
+
+                                        @if(session('error'))
+                                            <script>
+                                                Swal.fire({
+                                                    icon: 'error',
+                                                    title: 'Error',
+                                                    text: "{{ session('error') }}",
+                                                    timer: 2000, // 2 segundos para que la alerta se cierre automáticamente
+                                                    showConfirmButton: false
+                                                });
+                                            </script>
+                                        @endif
 
 
 <script>

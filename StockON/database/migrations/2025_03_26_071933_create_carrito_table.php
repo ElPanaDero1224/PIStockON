@@ -4,13 +4,13 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVentasTable extends Migration
+return new class extends Migration
 {
     public function up()
     {
-        Schema::create('ventas', function (Blueprint $table) {
+        Schema::create('carritos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('producto_id');
+            $table->unsignedBigInteger('producto_id'); 
             $table->integer('cantidad'); 
             $table->decimal('precio', 10, 2); 
             $table->decimal('precioTotal', 10, 2); 
@@ -23,6 +23,6 @@ class CreateVentasTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('ventas');
+        Schema::dropIfExists('carritos');
     }
-}
+};

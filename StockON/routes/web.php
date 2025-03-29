@@ -6,7 +6,8 @@ use App\Http\Controllers\inventarios;
 use App\Http\Controllers\proveedoresControler;
 use App\Http\Controllers\empleadosControler;
 use App\Http\Controllers\puestos;
-
+use App\Http\Controllers\VentasController;
+use App\Http\Controllers\CarritoController;
 
 
 
@@ -39,6 +40,8 @@ Route::put('/update_productos/{id_inventario}/{id}', [inventarios::class, 'updat
 #ruta para la grafica
 Route::get('/verGraficasBarras', [inventarios::class, 'verGraficaBarras'])->name('verGraficaBarras');
 Route::get('/verGraficasPuntos', [inventarios::class, 'verGraficaPuntos'])->name('verGraficaPuntos');
+
+
 
 
 #categorias
@@ -99,3 +102,15 @@ Route::put('/proveedores/{id}', [proveedoresControler::class, 'update'])->name('
 #delete
 Route::delete('/eliminarProveedor/{id}', [proveedoresControler::class, 'destroy'])->name('rutaEliminarProveedor');
 
+
+//Ruta para las ventas
+Route::get('/ventas', [VentasController::class, 'index'])->name('ventas');
+Route::post('/venta/{productoId}', [VentasController::class, 'venderProducto'])->name('vender');
+
+//Rutas carrito
+Route::get('/carrito', [CarritoController::class, 'index'])->name('carritos');
+Route::post('/carrito/{productoId}', [CarritoController::class, 'addcarrito'])->name('carrito');
+
+Route::delete('/carrito/remove/{carritoId}', [CarritoController::class, 'removeFromCart'])->name('carrito.remove');
+Route::put('/carrito/update/{carritoId}', [CarritoController::class, 'updateCart'])->name('carrito.update');
+Route::post('/carrito/move-to-ventas/{carritoId}', [CarritoController::class, 'moveToVentas'])->name('carrito.moveToVentas');

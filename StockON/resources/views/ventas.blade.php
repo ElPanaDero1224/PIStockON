@@ -3,8 +3,7 @@
 @section('css')
     @vite('resources/css/menu.css')
     <style>
-
-:root {
+        :root {
             --header-height: 101px;
             --sidebar-width: 250px;
             --sidebar-collapsed-width: 50px;
@@ -39,7 +38,6 @@
         .sidebar.collapsed {
             width: var(--sidebar-collapsed-width);
         }
-
 
         .sidebar-content {
             padding: 10px;
@@ -122,10 +120,6 @@
         }
         .periodo-btn:hover {
             background: #2d3748;
-        }
-        .chart-container {
-            max-width: 800px;
-            margin: 3rem auto;
         }
 
         .sidebar-buttons {
@@ -214,6 +208,14 @@
             box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2);
             transform: translateY(1px);
         }
+
+        /* Estilo para mover la tabla a la derecha */
+        .table-container {
+            display: flex;
+            justify-content: flex-end; /* Mueve la tabla a la derecha */
+            padding-left: 12rem; /* Añadir margen derecho si es necesario */
+            margin-top: 20px;
+        }
     </style>
 @endsection
 
@@ -236,6 +238,7 @@
                     <i class="fas fa-chart-line"></i>
                     <span>Gráfico de Ganancias</span>
                 </a>
+
                 <a href="{{ route('ventas') }}" class="sidebar-btn btn-gestionar">
                 <i class="fas fa-table"></i>
                 <span>Ver Tabla de Ventas</span>
@@ -245,58 +248,28 @@
     </div>
 </div>
 
+<div class="table-container">
+    <table class="table table-striped table-bordered table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>Producto</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Fecha</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach($ventas as $venta)
+                <tr>
+                   
+                    <td>{{ $venta->producto->nombre }}</td> 
+                    <td>{{ $venta->cantidad }}</td>
+                    <td>{{ $venta->precio }}</td>
+                    <td>{{ $venta->fecha }}</td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
 
-
-
-    <div class="inventario-opciones">
-        <div class="periodo-btn" data-periodo="anual">Anual</div>
-        <div class="periodo-btn" data-periodo="mensual">Mensual</div>
-        <div class="periodo-btn" data-periodo="semanal">Semanal</div>
-    </div>
-
-    <div class="chart-container">
-        <canvas id="inventarioChart"></canvas>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script>
-        // Configuración inicial del gráfico
-        const ctx = document.getElementById('inventarioChart');
-        let chart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Producto 1', 'Producto 2', 'Producto 3', 'Producto 4', 'Producto 5'],
-                datasets: [{
-                    label: 'Stock Actual',
-                    data: [65, 59, 80, 81, 56],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-
-        // Ejemplo de cambio de datos al hacer clic (implementar lógica real según necesidad)
-        document.querySelectorAll('.periodo-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const periodo = btn.dataset.periodo;
-                // Aquí deberías hacer una petición AJAX para obtener datos reales
-                console.log(`Cargar datos para periodo: ${periodo}`);
-                
-                // Ejemplo de actualización de datos
-                chart.data.datasets[0].data = [Math.random() * 100, Math.random() * 100, 
-                                             Math.random() * 100, Math.random() * 100, 
-                                             Math.random() * 100];
-                chart.update();
-            });
-        });
-    </script>
 @endsection

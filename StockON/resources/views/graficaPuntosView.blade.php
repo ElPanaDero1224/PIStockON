@@ -238,6 +238,11 @@
                     <i class="fas fa-chart-line"></i>
                     <span>Gráfico de Ganancias</span>
                 </a>
+
+                <a href="{{ route('ventas') }}" class="sidebar-btn btn-gestionar">
+                <i class="fas fa-table"></i>
+                <span>Ver Tabla de Ventas</span>
+                </a>
             </div>
         </div>
     </div>
